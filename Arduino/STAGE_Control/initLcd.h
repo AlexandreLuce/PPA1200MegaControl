@@ -36,6 +36,8 @@ ProcessSupply();
 sendCommand("page 2");
 CPage = 2;
 ProcessTemp();
+TempCh1.setValue(Temp[0]);
+TempCh2.setValue(Temp[1]);
 msg.setText("Init OK");
 }
 

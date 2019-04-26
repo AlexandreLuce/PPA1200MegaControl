@@ -22,7 +22,7 @@ const byte ibuspins[2][9] = {
  * 
  *******************************************************************/
 
-int unsigned timer1_lcdmsg = 12000;
+int unsigned timer1_lcdmsg = 10000;
 int unsigned timer2_ProcTemp = 30000;
 int unsigned timer3_ProcDC = 500;
 int unsigned timer4_ProcSignal = 3500;
@@ -80,6 +80,7 @@ int unsigned rmsV[2] = {0,0};
 int unsigned rmsI[2] = {0,0};
 int unsigned peakV[2] = {0,0};
 int unsigned peakI[2] = {0,0};
+int unsigned Temp[2] = {0,0};
 
 byte unsigned  CPage = 0;
 

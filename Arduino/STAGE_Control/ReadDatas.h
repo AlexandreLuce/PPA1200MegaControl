@@ -14,52 +14,52 @@
 void ProcessTemp(){
   //Temperature  
   float TempA0 = analogRead(ibuspins[0][2]);
-  int TempCH1 = TempA0 * 100 / 1023;
+  Temp[0] = TempA0 * 100 / 1023;
   float TempA1 = analogRead(ibuspins[1][2]);
-  int TempCH2 = TempA1 * 100 / 1023;
-  Temp1.setValue(TempCH1);
-  Temp2.setValue(TempCH2);
-  //Serial.print("TempCH1 :");
-  //Serial.println(TempCH1);
-  //Serial.print("TempCH2 :");
-  //Serial.println(TempCH2);
-  if((TempCH1 >= FanTemp || TempCH2 >= FanTemp) && FanState == 0){
-  sendHC(4,1);
-  LastMillis1=millis();
-  FanState = 1;
-  msg.setText("Fan ON"); 
+  Temp[1] = TempA1 * 100 / 1023;
+  //Serial.print("Temp CH1 :");
+  //Serial.println(Temp[0]);
+  //Serial.print("Temp CH2 :");
+  //Serial.println(Temp[1]);
+  if((Temp[0] >= FanTemp || Temp[1] >= FanTemp) && FanState == 0){
+    sendHC(4,1);
+    LastMillis1=millis();
+    FanState = 1;
+    msg.setText("Fan ON"); 
   }
- if(CPage==2){ 
-  if(TempCH1 >= FanTemp){
-   tTemp1.Set_font_color_pco(63521);
-   Temp1.Set_font_color_pco(63521);
-   tTempC1.Set_font_color_pco(63521);
-  }
-  if(TempCH2 >= FanTemp){
-   tTemp2.Set_font_color_pco(63521);
-   Temp2.Set_font_color_pco(63521);
-   tTempC2.Set_font_color_pco(63521);
-  }
-  if((TempCH1 < FanTemp-1 && TempCH2 < FanTemp-1) && FanState == 1){
+  else if((Temp[0] < FanTemp-1 && Temp[1] < FanTemp-1) && FanState == 1){
    sendHC(4,1);
    msg.setText("Fan OFF");
    LastMillis1=millis();
    FanState = 0; 
   }
-  if(TempCH1 < FanTemp-1){
+ if(CPage==2){ 
+  Temp1.setValue(Temp[0]);
+  Temp2.setValue(Temp[1]);
+  if(Temp[0] >= FanTemp){
+   tTemp1.Set_font_color_pco(63521);
+   Temp1.Set_font_color_pco(63521);
+   tTempC1.Set_font_color_pco(63521);
+  }
+  if(Temp[1] >= FanTemp){
+   tTemp2.Set_font_color_pco(63521);
+   Temp2.Set_font_color_pco(63521);
+   tTempC2.Set_font_color_pco(63521);
+  }
+  if(Temp[0] < FanTemp-1){
    tTemp1.Set_font_color_pco(26239);
    Temp1.Set_font_color_pco(26239);
    tTempC1.Set_font_color_pco(26239);
   }
-  if(TempCH2 < FanTemp-1){
+  if(Temp[1] < FanTemp-1){
    tTemp2.Set_font_color_pco(26239);
    Temp2.Set_font_color_pco(26239);
    tTempC2.Set_font_color_pco(26239);
   }
  }
  else if(CPage==9){
-  TempCh1.setValue(TempCH1);
-  TempCh2.setValue(TempCH2);
+  TempCh1.setValue(Temp[0]);
+  TempCh2.setValue(Temp[1]);
  }
 }
 
