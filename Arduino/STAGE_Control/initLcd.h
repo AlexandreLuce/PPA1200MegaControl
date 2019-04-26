@@ -27,7 +27,6 @@ iVolStep2.setValue(VolumeStep[1]);
 delay (500);
 sendCommand("page 1");
 delay (1000);
-ProcessTemp();
 ProcessDC();
 ProcessSignal();
 ProcessClip();
@@ -36,6 +35,7 @@ ProcessPwrPeak();
 ProcessSupply();
 sendCommand("page 2");
 CPage = 2;
+ProcessTemp();
 msg.setText("Init OK");
 }
 
