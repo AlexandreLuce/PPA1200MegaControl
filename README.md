@@ -11,7 +11,7 @@ Hardware and Software based on arduino mega and Nextion lcd touchscreen designed
      
 <h2>To Do</h2> 
 
-- [ ] Power off on DC fail
+- [ ] Power off on DC fail function
 - [ ] Limit Fan threshold
 - [ ] Delay for channel restart
 - [ ] Test clip feedback
