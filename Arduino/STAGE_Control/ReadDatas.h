@@ -148,6 +148,9 @@ void ProcessClip(){
 
 /**************************************
  * Supply
+ * ************************************
+ * 
+ * 5 Volts = 120 Volts = 1024
  * 
  **************************************/
 
@@ -177,10 +180,10 @@ void ProcessSupply(){
       }
   }
   else if (CPage==9){
-    int supply1 = map(supply[0], 0, 1023, 0, 240);
+    int supply1 = map(supply[0], 0, 1023, 0, 120);
     supplyCh1.setValue(supply1);
     
-    int supply2 = map(supply[1], 0, 1023, 0, 240);
+    int supply2 = map(supply[1], 0, 1023, 0, 120);
     supplyCh2.setValue(supply2);
   }
 }

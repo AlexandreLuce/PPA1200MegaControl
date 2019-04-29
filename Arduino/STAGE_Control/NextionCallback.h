@@ -9,10 +9,14 @@
 
 
 /**************************************
- * Channel 1 Stereo
+ * 
+ * Page : Home Stereo
  * 
  **************************************/
 
+/**************************************
+ * Power Channel 1
+ **************************************/
 void Pch1PopCallback(void *ptr)
 {
     if(supply[0]<800) 
@@ -35,7 +39,10 @@ void Pch1PopCallback(void *ptr)
     }
 }
 
-void Vplus1PopCallback(void *ptr)
+/**************************************
+ * Volume Up Channel 1
+ **************************************/
+ void Vplus1PopCallback(void *ptr)
 {   
     Volume(HIGH,0);      
     Vol1.setValue(Volval[0]);
@@ -45,6 +52,9 @@ void Vplus1PopCallback(void *ptr)
       }    
 }
 
+/**************************************
+ * Volume Down Channel 1
+ **************************************/
 void Vmin1PopCallback(void *ptr)
 {
     Volume(LOW,0);    
@@ -55,11 +65,9 @@ void Vmin1PopCallback(void *ptr)
       }   
 }
 
-/*****************************************
- * Channel 2 Stereo
- * 
- ****************************************/
-
+/**************************************
+ * Power Channel 2
+ **************************************/
 void Pch2PopCallback(void *ptr)
 {
     
@@ -83,6 +91,9 @@ void Pch2PopCallback(void *ptr)
     }
 }
 
+/**************************************
+ * Volume Up Channel 2
+ **************************************/
 void Vplus2PopCallback(void *ptr)
 {
     Volume(HIGH,1);      
@@ -93,6 +104,9 @@ void Vplus2PopCallback(void *ptr)
       }   
 }
 
+/**************************************
+ * Volume Down Channel 2
+ **************************************/
 void Vmin2PopCallback(void *ptr)
 {
     Volume(LOW,1);    
@@ -104,11 +118,14 @@ void Vmin2PopCallback(void *ptr)
 }
 
 /************************************
- * Common Settings
+ * 
+ * Page : Common Settings
  * 
 *************************************/
 
-//Chassis Lift
+/**************************************
+ * Chassis Lift
+ **************************************/
 void CliftPopCallback(void *ptr)
 {
     uint32_t dual_state;
@@ -127,7 +144,9 @@ void CliftPopCallback(void *ptr)
     }
 }
 
-//Volume Sync
+/**************************************
+ * Volume Sync
+ **************************************/
 void VolSyncPopCallback(void *ptr)
 {
     uint32_t dual_state;
@@ -136,7 +155,7 @@ void VolSyncPopCallback(void *ptr)
 
     /* Get the state value of dual state button component . */
     VolSync.getValue(&dual_state);
-    if(dual_state) 
+    if(dual_state==1) 
     {
     VolSyncState = 1;
     }
@@ -146,7 +165,9 @@ void VolSyncPopCallback(void *ptr)
     }
 }
 
-//Fan Activation
+/**************************************
+ * Fan activation temperature
+ **************************************/
 void FTplusPopCallback(void *ptr)
 {   
     FanTemp = FanTemp + 1;      
@@ -159,7 +180,9 @@ void FTminPopCallback(void *ptr)
     FTemp.setValue(FanTemp);  
 }
 
-//Save
+/**************************************
+ * Save preset
+ **************************************/
 void savesetPopCallback(void *ptr)
 {  
   uint32_t liftc_state; 
@@ -177,11 +200,14 @@ EEPROM.update(0, FanTemp);
 }
 
 /***********************************
- * Channel 1 Settings
+ * 
+ * Page : Channel 1 Settings
  * 
 ***********************************/
 
-//Input Lift
+/**************************************
+ * Input Lift
+ **************************************/
 void lift1PopCallback(void *ptr)
 {
     uint32_t dual_state;
@@ -199,8 +225,9 @@ void lift1PopCallback(void *ptr)
     sendHC(0,0);
     }
 }
-
-//Filter
+/**************************************
+ * Filter activation
+ **************************************/
 void filter1PopCallback(void *ptr)
 {
     uint32_t dual_state;
@@ -229,7 +256,9 @@ void filter1PopCallback(void *ptr)
     }
 }
 
-//Volume Step
+/**************************************
+ * Volume step
+ **************************************/
 void VolStepUp1PopCallback(void *ptr) {
   if(VolumeStep[0] < 5){
     VolumeStep[0] = VolumeStep[0] + 1;  
@@ -245,7 +274,9 @@ void VolStepDw1PopCallback(void *ptr) {
 }
 
 
-//Start Volume
+/**************************************
+ * Start volume
+ **************************************/
 void SvolUp1PopCallback(void *ptr)
 {   
     if (StartVol[0] < MaxVol[0]){
@@ -262,7 +293,9 @@ void SvolDw1PopCallback(void *ptr)
     sVol1.setValue(StartVol[0]);  
 }
 
-//Max Volume
+/**************************************
+ * Max volume
+ **************************************/
 void MvolUp1PopCallback(void *ptr)
 {   
     if (MaxVol[0] < 80){
@@ -294,11 +327,14 @@ void save1PopCallback(void *ptr)
   
 }
 /*************************************
+ * 
  * Channel 2 Settings
  * 
  *************************************/
 
-//Input Lift
+/**************************************
+ * Input Lift
+ **************************************/
 void lift2PopCallback(void *ptr)
 {
     uint32_t dual_state;
@@ -317,7 +353,9 @@ void lift2PopCallback(void *ptr)
     }
 }
 
-//Filter
+/**************************************
+ * Filter activation
+ **************************************/
 void filter2PopCallback(void *ptr)
 {
     uint32_t dual_state;
@@ -346,7 +384,9 @@ void filter2PopCallback(void *ptr)
     }
 }
 
-//Volume Step
+/**************************************
+ * Volume step
+ **************************************/
 void VolStepUp2PopCallback(void *ptr) {
   if(VolumeStep[1] < 5){
     VolumeStep[1] = VolumeStep[1] + 1;
@@ -361,7 +401,9 @@ void VolStepDw2PopCallback(void *ptr) {
   VolStep2.setValue(VolumeStep[1]);
 }
 
-//Start Volume
+/**************************************
+ * Start volume
+ **************************************/
 void SvolUp2PopCallback(void *ptr) {   
   if (StartVol[1] < MaxVol[1]){
     StartVol[1] = StartVol[1] + 1;
@@ -377,7 +419,9 @@ void SvolDw2PopCallback(void *ptr)
     sVol2.setValue(StartVol[1]);  
 }
 
-//Max Volume
+/**************************************
+ * Max volume
+ **************************************/
 void MvolUp2PopCallback(void *ptr)
 {   
     if (MaxVol[1] < 80){
@@ -394,8 +438,9 @@ void MvolDw2PopCallback(void *ptr)
     mVol2.setValue(MaxVol[1]);  
 }
 
-//Save
-
+/**************************************
+ * Save
+ **************************************/
 void save2PopCallback(void *ptr)
 {   
   uint32_t filter2_state;
@@ -410,7 +455,8 @@ void save2PopCallback(void *ptr)
 }
 
 /*************************************
- * Page Navigation
+ * 
+ * Navigation between pages
  * 
  *************************************/
 

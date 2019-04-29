@@ -38,7 +38,7 @@ void InitBus(){
     HCbusvalue[0][4] = 0;
     //Serial.println("Chassis Lift State OFF");
    }
-  if (Lift1State==1){
+  if (LiftState[0]==1){
     HCbusvalue[0][0] = 1;
     //Serial.println("Lift 1 State ON");
    }
@@ -46,7 +46,7 @@ void InitBus(){
     HCbusvalue[0][0] = 0;
     //Serial.println("Lift 1 State OFF");
    }
-  if (Filter1State==1){
+  if (FilterState[0]==1){
     HCbusvalue[0][5] = 1;
     //Serial.println("Filter 1 State ON");
    }
@@ -54,7 +54,7 @@ void InitBus(){
     HCbusvalue[0][5] = 0;
     //Serial.println("Filter 1 State OFF");
    }
-  if (Lift2State==1){
+  if (LiftState[1]==1){
     HCbusvalue[1][0] = 1;
     //Serial.println("Lift 2 State ON");
    }
@@ -62,7 +62,7 @@ void InitBus(){
     HCbusvalue[1][0] = 0;
     //Serial.println("Lift 2 State OFF");
    }
-  if (Filter2State==1){
+  if (FilterState[1]==1){
     HCbusvalue[1][5] = 1;
     //Serial.println("Filter 2 State ON");
    }

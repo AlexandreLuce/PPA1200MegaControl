@@ -15,11 +15,10 @@ StartVol[0] = EEPROM.read(6);
 StartVol[1] = EEPROM.read(15);
 VolSyncState = EEPROM.read(1);
 FanTemp = EEPROM.read(0);
-
 CliftState = EEPROM.read(3);
-Lift1State = EEPROM.read(4);
-Filter1State = EEPROM.read(5);
-Lift2State = EEPROM.read(8);
-Filter2State = EEPROM.read(9);
+LiftState[0] = EEPROM.read(4);
+FilterState[0] = EEPROM.read(5);
+LiftState[1] = EEPROM.read(8);
+FilterState[1] = EEPROM.read(9);
 //bridgeState = EEPROM.read(20);
 }

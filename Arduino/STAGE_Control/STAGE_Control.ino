@@ -40,10 +40,8 @@ int unsigned StartVol[2] = {0,0};
 byte unsigned VolumeStep[2] = {1,1};
 byte unsigned VolSyncState = 0;
 byte unsigned CliftState = 0;
-byte unsigned Lift1State = 0;
-byte unsigned Filter1State = 0;
-byte unsigned Lift2State = 0;
-byte unsigned Filter2State = 0;
+byte unsigned LiftState[2] = {0,0};
+byte unsigned FilterState[2] = {0,0};
 byte unsigned bridgeState = 0;
 int unsigned FanTemp = 30;
 
