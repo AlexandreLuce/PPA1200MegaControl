@@ -17,23 +17,25 @@
 /**************************************
  * Power Channel 1
  **************************************/
-void Pch1PopCallback(void *ptr)
+void Pch1PopCallback()
 {
-    if(supply[0]<800) 
+    if(supply[0]<800 && PowerState[0] == 0 && dc[0] == 1) 
     {
     sendHC(2,0);  //Power
     delay(400);
     sendHC(3,0);  // Out
     Ch1Pwr.setValue(1);
+    PowerState[0] = 1;
     msg.setText("Ch1 ON");
     LastMillis1=millis();
     }
-    else if (supply[0]>800)
+    else if (supply[0]>800 && PowerState[0] == 1)
     {
     sendHC(3,0);  // Out
     delay(100);
     sendHC(2,0);  // Power
     Ch1Pwr.setValue(0);
+    PowerState[0] = 0;
     msg.setText("Ch1 OFF");
     LastMillis1=millis();
     }
@@ -68,24 +70,26 @@ void Vmin1PopCallback(void *ptr)
 /**************************************
  * Power Channel 2
  **************************************/
-void Pch2PopCallback(void *ptr)
+void Pch2PopCallback()
 {
     
-    if(supply[1]<800) 
+    if(supply[1]<800 && PowerState[1] == 0 && dc[1] == 1) 
     {
     sendHC(2,1);  //Power
     delay(400);
     sendHC(3,1);  // Out
     Ch2Pwr.setValue(1);
+    PowerState[1] = 1;
     msg.setText("Ch2 ON");
     LastMillis1=millis();
     }
-    else if (supply[1]>800)
+    else if (supply[1]>800 && PowerState[1] == 1)
     {
     sendHC(3,1);  // Out
     delay(100);
     sendHC(2,1);  // Power
     Ch2Pwr.setValue(0);
+    PowerState[1] = 0;
     msg.setText("Ch2 OFF");
     LastMillis1=millis();
     }
@@ -94,7 +98,7 @@ void Pch2PopCallback(void *ptr)
 /**************************************
  * Volume Up Channel 2
  **************************************/
-void Vplus2PopCallback(void *ptr)
+void Vplus2PopCallback()
 {
     Volume(HIGH,1);      
     Vol2.setValue(Volval[1]);  
@@ -107,7 +111,7 @@ void Vplus2PopCallback(void *ptr)
 /**************************************
  * Volume Down Channel 2
  **************************************/
-void Vmin2PopCallback(void *ptr)
+void Vmin2PopCallback()
 {
     Volume(LOW,1);    
     Vol2.setValue(Volval[1]);
@@ -126,7 +130,7 @@ void Vmin2PopCallback(void *ptr)
 /**************************************
  * Chassis Lift
  **************************************/
-void SelectCliftPopCallback(void *ptr)
+void SelectCliftPopCallback()
 {
 
     if(CliftState == 0) 
@@ -148,7 +152,7 @@ void SelectCliftPopCallback(void *ptr)
 /**************************************
  * Bridge
  **************************************/
-void SelectbridgePopCallback(void *ptr)
+void SelectbridgePopCallback()
 {
 
 }
@@ -156,7 +160,7 @@ void SelectbridgePopCallback(void *ptr)
 /**************************************
  * Volume Sync
  **************************************/
-void SelectVolSyncPopCallback(void *ptr)
+void SelectVolSyncPopCallback()
 {
     if(VolSyncState == 1) 
     {
@@ -175,7 +179,7 @@ void SelectVolSyncPopCallback(void *ptr)
 /**************************************
  * Fan activation temperature
  **************************************/
-void FTplusPopCallback(void *ptr)
+void FTplusPopCallback()
 {   
   if (FanTemp < 65){
     FanTemp = FanTemp + 1;    
@@ -194,7 +198,7 @@ void FTminPopCallback(void *ptr)
 /**************************************
  * Save preset
  **************************************/
-void savesetPopCallback(void *ptr)
+void savesetPopCallback()
 {  
 EEPROM.update(3, CliftState);
 EEPROM.update(1, VolSyncState);
@@ -212,7 +216,7 @@ EEPROM.update(0, FanTemp);
 /**************************************
  * Input Lift
  **************************************/
-void Selectlift1PopCallback(void *ptr)
+void Selectlift1PopCallback()
 {
     if(LiftState[0] == 0) 
     {
@@ -232,7 +236,7 @@ void Selectlift1PopCallback(void *ptr)
 /**************************************
  * Filter activation
  **************************************/
-void Selectfilter1PopCallback(void *ptr)
+void Selectfilter1PopCallback()
 {
     if(FilterState[0] == 0) 
     {
@@ -263,14 +267,14 @@ void Selectfilter1PopCallback(void *ptr)
 /**************************************
  * Volume step
  **************************************/
-void VolStepUp1PopCallback(void *ptr) {
+void VolStepUp1PopCallback() {
   if(VolumeStep[0] < 5){
     VolumeStep[0] = VolumeStep[0] + 1;  
   }
   VolStep1.setValue(VolumeStep[0]); 
 }
 
-void VolStepDw1PopCallback(void *ptr) {
+void VolStepDw1PopCallback() {
   if(VolumeStep[0] > 1){
     VolumeStep[0] = VolumeStep[0] - 1;  
   }
@@ -281,7 +285,7 @@ void VolStepDw1PopCallback(void *ptr) {
 /**************************************
  * Start volume
  **************************************/
-void SvolUp1PopCallback(void *ptr)
+void SvolUp1PopCallback()
 {   
     if (StartVol[0] < MaxVol[0]){
     StartVol[0] = StartVol[0] + 1;
@@ -289,7 +293,7 @@ void SvolUp1PopCallback(void *ptr)
     sVol1.setValue(StartVol[0]);  
 }
 
-void SvolDw1PopCallback(void *ptr)
+void SvolDw1PopCallback()
 {   
     if (StartVol[0] > 0){
     StartVol[0] = StartVol[0] - 1;
@@ -300,7 +304,7 @@ void SvolDw1PopCallback(void *ptr)
 /**************************************
  * Max volume
  **************************************/
-void MvolUp1PopCallback(void *ptr)
+void MvolUp1PopCallback()
 {   
     if (MaxVol[0] < 80){
     MaxVol[0] = MaxVol[0] + 1;
@@ -308,7 +312,7 @@ void MvolUp1PopCallback(void *ptr)
     mVol1.setValue(MaxVol[0]);  
 }
 
-void MvolDw1PopCallback(void *ptr)
+void MvolDw1PopCallback()
 {   
     if (MaxVol[0] > 0){
     MaxVol[0] = MaxVol[0] - 1;
@@ -319,7 +323,7 @@ void MvolDw1PopCallback(void *ptr)
 /**************************************
  * Save
  **************************************/
-void save1PopCallback(void *ptr)
+void save1PopCallback()
 {   
   EEPROM.update(5, FilterState[0]);
   EEPROM.update(4, LiftState[0]);
@@ -337,7 +341,7 @@ void save1PopCallback(void *ptr)
 /**************************************
  * Input Lift
  **************************************/
-void Selectlift2PopCallback(void *ptr)
+void Selectlift2PopCallback()
 {
     if(LiftState[1] == 0) 
     {
@@ -358,7 +362,7 @@ void Selectlift2PopCallback(void *ptr)
 /**************************************
  * Filter activation
  **************************************/
-void Selectfilter2PopCallback(void *ptr)
+void Selectfilter2PopCallback()
 {
      if(FilterState[1] == 0) 
     {
@@ -389,14 +393,14 @@ void Selectfilter2PopCallback(void *ptr)
 /**************************************
  * Volume step
  **************************************/
-void VolStepUp2PopCallback(void *ptr) {
+void VolStepUp2PopCallback() {
   if(VolumeStep[1] < 5){
     VolumeStep[1] = VolumeStep[1] + 1;
   } 
   VolStep2.setValue(VolumeStep[1]);
 }
 
-void VolStepDw2PopCallback(void *ptr) {
+void VolStepDw2PopCallback() {
   if(VolumeStep[1] > 1){
     VolumeStep[1] = VolumeStep[1] - 1;  
   }
@@ -406,14 +410,14 @@ void VolStepDw2PopCallback(void *ptr) {
 /**************************************
  * Start volume
  **************************************/
-void SvolUp2PopCallback(void *ptr) {   
+void SvolUp2PopCallback() {   
   if (StartVol[1] < MaxVol[1]){
     StartVol[1] = StartVol[1] + 1;
   }      
 sVol2.setValue(StartVol[1]);  
 }
 
-void SvolDw2PopCallback(void *ptr)
+void SvolDw2PopCallback()
 {   
     if (StartVol[1] > 0){
     StartVol[1] = StartVol[1] - 1;
@@ -424,7 +428,7 @@ void SvolDw2PopCallback(void *ptr)
 /**************************************
  * Max volume
  **************************************/
-void MvolUp2PopCallback(void *ptr)
+void MvolUp2PopCallback()
 {   
     if (MaxVol[1] < 80){
     MaxVol[1] = MaxVol[1] + 1;
@@ -432,7 +436,7 @@ void MvolUp2PopCallback(void *ptr)
     mVol2.setValue(MaxVol[1]);  
 }
 
-void MvolDw2PopCallback(void *ptr)
+void MvolDw2PopCallback()
 {   
     if (MaxVol[1] > 0){
     MaxVol[1] = MaxVol[1] - 1;
@@ -443,7 +447,7 @@ void MvolDw2PopCallback(void *ptr)
 /**************************************
  * Save
  **************************************/
-void save2PopCallback(void *ptr)
+void save2PopCallback()
 {   
   EEPROM.update(9, FilterState[1]);
   EEPROM.update(8, LiftState[1]);
@@ -458,25 +462,25 @@ void save2PopCallback(void *ptr)
  * 
  *************************************/
 
-void goInfoPagePopCallback(void *ptr)
+void goInfoPagePopCallback()
 {   
 sendCommand("page 9");
 CPage = 9;
 }
 
-void backInfoPopCallback(void *ptr)
+void backInfoPopCallback()
 {   
 sendCommand("page 2");
 CPage = 2;
 }
 
-void goSettingsPopCallback(void *ptr)
+void goSettingsPopCallback()
 {   
 sendCommand("page 4");
 CPage = 4;
 }
 
-void backSetPopCallback(void *ptr)
+void backSetPopCallback()
 {   
 sendCommand("page 2");
 CPage = 2;

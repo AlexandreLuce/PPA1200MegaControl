@@ -63,6 +63,7 @@ int ADbusvalue[2][12] ={
 byte bitval;
 int Volval[2] = {0,0};
 byte unsigned FanState = 0;
+byte unsigned PowerState[2] = {0,0};
 byte unsigned setpin;
 byte unsigned setAmp;
 byte unsigned ADbus = 11;
