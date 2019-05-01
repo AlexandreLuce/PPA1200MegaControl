@@ -28,7 +28,7 @@ if(millis() - LastMillis6 > timer6_ProcSupply){
 * Home Page Process
 * 
 *******************************************************/
-if(CPage==2){
+if(CPage==2 || CPage==3){
   if(millis() - LastMillis1 > timer1_lcdmsg){
     blankmsg();
     LastMillis1 = millis();

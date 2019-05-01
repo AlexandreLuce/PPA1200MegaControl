@@ -240,31 +240,33 @@ void SelectbridgePopCallback()
     VolSyncState = 0;
     VolSync.setValue(0);
     VolSync.setText("Volume Sync Inactive");
-    sendHC(3,0);  // Out
-    sendHC(3,1);  // Out
+    if (PowerState[0] == 1){
+      Pch1PopCallback();
+    }
+    if (PowerState[1] == 1){
+      Pch2PopCallback();
+    }
     delay(100);
     sendHC(1,0);  // Bridge
     sendHC(1,1);  // Bridge
-    delay(200);
-    sendHC(3,0);  // Out
-    sendHC(3,1);  // Out
     }
     else if (bridgeState == 0)
     {
+    if (PowerState[0] == 1){
+      Pch1PopCallback();
+    }
+    if (PowerState[1] == 1){
+      Pch2PopCallback();
+    }
     bridge.setValue(1);
     bridge.setText("Bridge Active");
     bridgeState = 1;
     VolSyncState = 1;
     VolSync.setValue(1);
     VolSync.setText("Volume Sync Active");
-    sendHC(3,0);  // Out
-    sendHC(3,1);  // Out
     delay(100);
     sendHC(1,0);  // Bridge
     sendHC(1,1);  // Bridge
-    delay(200);
-    sendHC(3,0);  // Out
-    sendHC(3,1);  // Out
     }
 }
 
@@ -355,11 +357,15 @@ void Selectfilter1PopCallback()
       filter1.setText("Filter Active");
       FilterState[0]=1;
       setAmp = 0;
+     if (PowerState[0] == 1){
       sendHC(3,setAmp);
+    }
       delay(100);
       sendHC(5,setAmp);
-      delay(300);
+      delay(200);
+     if (PowerState[0] == 1){
       sendHC(3,setAmp);
+     }
     }
     else if(FilterState[0] == 1) 
     {
@@ -367,11 +373,15 @@ void Selectfilter1PopCallback()
       FilterState[0]=0;
       filter1.setText("Filter Inactive");
       setAmp = 0;
-      sendHC(3,setAmp);
+      if (PowerState[0] == 1){
+        sendHC(3,setAmp);
+      }
       delay(100);
       sendHC(5,setAmp);
       delay(300);
-      sendHC(3,setAmp);
+      if (PowerState[0] == 1){
+        sendHC(3,setAmp);
+      }
     }
 }
 
@@ -481,11 +491,15 @@ void Selectfilter2PopCallback()
       filter2.setText("Filter Active");
       FilterState[1]=1;
       setAmp = 1;
+      if (PowerState[1] == 1){
       sendHC(3,setAmp);
+      }
       delay(100);
       sendHC(5,setAmp);
       delay(300);
+      if (PowerState[1] == 1){
       sendHC(3,setAmp);
+      }
     }
     else if(FilterState[1]==1) 
     {
@@ -493,11 +507,15 @@ void Selectfilter2PopCallback()
       FilterState[1]=0;
       filter2.setText("Filter Inactive");
       setAmp = 1;
+      if (PowerState[1] == 1){
       sendHC(3,setAmp);
+      }
       delay(100);
       sendHC(5,setAmp);
-      delay(300);
+      delay(200);
+      if (PowerState[1] == 1){
       sendHC(3,setAmp);
+    }
     }
 }
 
@@ -577,6 +595,7 @@ void goInfoPagePopCallback()
 {   
 sendCommand("page 9");
 CPage = 9;
+ProcessTemp();
 }
 
 void backHomePopCallback()
@@ -584,10 +603,12 @@ void backHomePopCallback()
   if (bridgeState == 0){
   sendCommand("page 2");
   CPage = 2;
+  ProcessTemp();
   }
   else if (bridgeState == 1){
   sendCommand("page 3");
   CPage = 3;
+  ProcessTemp();
   }
 }
 
