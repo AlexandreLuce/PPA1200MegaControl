@@ -33,12 +33,19 @@ ProcessClip();
 ProcessPwrRMS();
 ProcessPwrPeak();
 ProcessSupply();
-sendCommand("page 2");
-CPage = 2;
+  if (bridgeState == 0){
+    sendCommand("page 2");
+    CPage = 2;
+  }
+  else if (bridgeState == 1){
+    sendCommand("page 3");
+    CPage = 3;
+  }
 ProcessTemp();
-TempCh1.setValue(Temp[0]);
-TempCh2.setValue(Temp[1]);
+Temp1.setValue(Temp[0]);
+Temp2.setValue(Temp[1]);
 msg.setText("Init OK");
+LastMillis1=millis();
 }
 
 /*******************************************************
@@ -47,5 +54,7 @@ msg.setText("Init OK");
 *******************************************************/
 
 void blankmsg(){
-  msg.setText("            ");
+  if (CPage == 2 || CPage == 3){
+  msg.setText("               ");
   }
+}

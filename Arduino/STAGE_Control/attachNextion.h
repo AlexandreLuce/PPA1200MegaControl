@@ -14,6 +14,12 @@ void attachNextion(){
 Pch1.attachPop(Pch1PopCallback, &Pch1);
 Pch2.attachPop(Pch2PopCallback, &Pch2);
 
+Power.attachPop(PowerPopCallback, &Power);
+gotoSettings.attachPop(goSettingsPopCallback, &gotoSettings);
+
+Vmin.attachPop(VminPopCallback, &Vmin);
+Vplus.attachPop(VplusPopCallback, &Vplus);
+
 Vmin1.attachPop(Vmin1PopCallback, &Vmin1);
 Vmin2.attachPop(Vmin2PopCallback, &Vmin2);
 
@@ -49,9 +55,9 @@ save1.attachPop(save1PopCallback, &save1);
 save2.attachPop(save2PopCallback, &save2);
 
 goInfoPage.attachPop(goInfoPagePopCallback, &goInfoPage);
-backInfo.attachPop(backInfoPopCallback, &backInfo);
+backInfo.attachPop(backHomePopCallback, &backInfo);
 goSettings.attachPop(goSettingsPopCallback, &goSettings);
-backSet.attachPop(backSetPopCallback, &backSet);
+backSet.attachPop(backHomePopCallback, &backSet);
 
 VolStepDw1.attachPop(VolStepDw1PopCallback, &VolStepDw1);
 VolStepDw2.attachPop(VolStepDw2PopCallback, &VolStepDw2);

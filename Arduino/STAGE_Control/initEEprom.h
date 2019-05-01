@@ -20,5 +20,5 @@ LiftState[0] = EEPROM.read(4);
 FilterState[0] = EEPROM.read(5);
 LiftState[1] = EEPROM.read(8);
 FilterState[1] = EEPROM.read(9);
-//bridgeState = EEPROM.read(20);
+bridgeState = EEPROM.read(20);
 }

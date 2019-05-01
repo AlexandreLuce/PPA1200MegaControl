@@ -79,18 +79,18 @@ NexHotspot Pch2(Home, 20, "Pch2");
  *******************************************************************/
 
 NexText msgBR(HomeBR, 16, "msgBR"); 
-NexButton Vplus(HomeBR, 5, "Vplus");
-NexButton Vmin(HomeBR, 4, "Vmin");
+NexButton Vplus(HomeBR, 4, "Vplus");
+NexButton gotoSettings(HomeBR, 1, "GotoSettings");
+NexButton Vmin(HomeBR, 5, "Vmin");
 NexNumber Vol(HomeBR,3,"Vol");
-NexNumber Temp1BR(HomeBR, 9,"Temp1BR");
-NexNumber Temp2BR(HomeBR, 10,"Temp2BR");
-NexText tTempBR(HomeBR, 8, "tTempBR");
+NexText tTemp(HomeBR, 8, "tTemp");
 NexNumber rw(HomeBR, 14,"rw");
 NexNumber pw(HomeBR, 12,"pw");
 NexDSButton Signal(HomeBR, 17, "Signal");
 NexText Clip(HomeBR, 7, "Clip");
-NexDSButton Power(HomeBR, 2, "Power");
-NexText DCBR(HomeBR, 6, "DCBR");
+NexHotspot Power(HomeBR, 18, "Power");
+NexDSButton PowerBR(HomeBR, 2, "PowerBR");
+
 
 /*******************************************************************
  * Nextion component for page 4 : Settings
@@ -223,6 +223,7 @@ NexTouch *nex_listen_list[] = {
   &backInfo,
   &goInfoPage,
   &goSettings,
+  &gotoSettings,
   &backSet,
   &VolStepUp1,
   &VolStepDw1,

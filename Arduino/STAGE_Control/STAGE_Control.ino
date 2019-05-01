@@ -96,9 +96,7 @@ long unsigned int LastMillis7=0;
 long unsigned int LastPwr1Millis=0;
 long unsigned int LastPwr2Millis=0;
 
-#include "VolumeTable.h"
 #include "InitAmp.h"
-
 
 /*******************************************************
 * 

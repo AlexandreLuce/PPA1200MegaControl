@@ -25,7 +25,6 @@ void Pch1PopCallback()
     delay(400);
     sendHC(3,0);  // Out
     Ch1Pwr.setValue(1);
-    LastPwr1Millis=millis();
     PowerState[0] = 1;
     msg.setText("Ch1 ON");
     LastMillis1=millis();
@@ -86,7 +85,6 @@ void Pch2PopCallback()
     sendHC(3,1);  // Out
     Ch2Pwr.setValue(1);
     PowerState[1] = 1;
-    LastPwr2Millis=millis();
     msg.setText("Ch2 ON");
     LastMillis1=millis();
     }
@@ -134,6 +132,73 @@ void Vmin2PopCallback()
       }     
 }
 
+/**************************************
+ * 
+ * Page : Home Bridge
+ * 
+ **************************************/
+
+/**************************************
+ * Power Channels
+ **************************************/
+void PowerPopCallback()
+{
+  if(supply[0]<800 && PowerState[0] == 0 && dc[0] == 1 && millis() - LastPwr1Millis > timer8_ChPwr && supply[1]<800 && PowerState[1] == 0 && dc[1] == 1 && millis() - LastPwr2Millis > timer8_ChPwr)
+    {
+    sendHC(2,0);  //Power 1
+    delay(400);
+    sendHC(2,1);  //Power 2
+    delay(400);
+    sendHC(3,0);  // Out 1
+    sendHC(3,1);  // Out 2
+    PowerBR.setValue(1);
+    LastPwr1Millis=millis();
+    LastPwr2Millis=millis();
+    PowerState[0] = 1;
+    PowerState[1] = 1;
+    msgBR.setText("Power ON");
+    LastMillis1=millis();
+    }
+    else if(supply[0]<800 && PowerState[0] == 0 && dc[0] == 1 && millis() - LastPwr1Millis < timer8_ChPwr || supply[1]<800 && PowerState[1] == 0 && dc[1] == 1 && millis() - LastPwr2Millis < timer8_ChPwr) 
+    {
+      msg.setText("Wait for Power");
+      LastMillis1=millis();
+    }
+    else if (supply[0]>800 && PowerState[0] == 1 && supply[1]>800 && PowerState[1] == 1)
+    {
+    sendHC(2,0);  // Out 1
+    sendHC(2,1);  // Out 2
+    delay(200);
+    sendHC(3,0);  // Power 1
+    sendHC(3,1);  // Power 2
+    PowerBR.setValue(0);
+    PowerState[0] = 0;
+    PowerState[1] = 0;
+    msg.setText("Power OFF");
+    LastMillis1=millis();
+    }
+}
+
+/**************************************
+ * Volume Up
+ **************************************/
+void VplusPopCallback(){
+Volume(HIGH,0);
+Volume(HIGH,1);
+Vol.setValue(Volval[0]);
+}
+
+
+/**************************************
+ * Volume Down
+ **************************************/
+void VminPopCallback()
+{
+Volume(LOW,0);
+Volume(LOW,1);
+Vol.setValue(Volval[0]);
+}
+
 /************************************
  * 
  * Page : Common Settings
@@ -141,7 +206,7 @@ void Vmin2PopCallback()
 *************************************/
 
 /**************************************
- * Chassis Lift
+ * Chassis Lift activation
  **************************************/
 void SelectCliftPopCallback()
 {
@@ -163,25 +228,58 @@ void SelectCliftPopCallback()
 }
 
 /**************************************
- * Bridge
+ * Bridge activation
  **************************************/
 void SelectbridgePopCallback()
 {
-
+    if(bridgeState == 1) 
+    {
+    bridge.setValue(0);
+    bridge.setText("Bridge Inactive");
+    bridgeState = 0;
+    VolSyncState = 0;
+    VolSync.setValue(0);
+    VolSync.setText("Volume Sync Inactive");
+    sendHC(3,0);  // Out
+    sendHC(3,1);  // Out
+    delay(100);
+    sendHC(1,0);  // Bridge
+    sendHC(1,1);  // Bridge
+    delay(200);
+    sendHC(3,0);  // Out
+    sendHC(3,1);  // Out
+    }
+    else if (bridgeState == 0)
+    {
+    bridge.setValue(1);
+    bridge.setText("Bridge Active");
+    bridgeState = 1;
+    VolSyncState = 1;
+    VolSync.setValue(1);
+    VolSync.setText("Volume Sync Active");
+    sendHC(3,0);  // Out
+    sendHC(3,1);  // Out
+    delay(100);
+    sendHC(1,0);  // Bridge
+    sendHC(1,1);  // Bridge
+    delay(200);
+    sendHC(3,0);  // Out
+    sendHC(3,1);  // Out
+    }
 }
 
 /**************************************
- * Volume Sync
+ * Volume Sync activation
  **************************************/
 void SelectVolSyncPopCallback()
 {
-    if(VolSyncState == 1) 
+    if(VolSyncState == 1 && bridgeState == 0) 
     {
     VolSyncState = 0;
     VolSync.setValue(0);
     VolSync.setText("Volume Sync Inactive");
     }
-    else if (VolSyncState == 0)
+    else if (VolSyncState == 0 && bridgeState == 0)
     {
     VolSyncState = 1;
     VolSync.setValue(1);
@@ -227,7 +325,7 @@ EEPROM.update(0, FanTemp);
 ***********************************/
 
 /**************************************
- * Input Lift
+ * Input Lift activation
  **************************************/
 void Selectlift1PopCallback()
 {
@@ -352,7 +450,7 @@ void save1PopCallback()
  *************************************/
 
 /**************************************
- * Input Lift
+ * Input Lift activation
  **************************************/
 void Selectlift2PopCallback()
 {
@@ -481,10 +579,16 @@ sendCommand("page 9");
 CPage = 9;
 }
 
-void backInfoPopCallback()
+void backHomePopCallback()
 {   
-sendCommand("page 2");
-CPage = 2;
+  if (bridgeState == 0){
+  sendCommand("page 2");
+  CPage = 2;
+  }
+  else if (bridgeState == 1){
+  sendCommand("page 3");
+  CPage = 3;
+  }
 }
 
 void goSettingsPopCallback()
@@ -493,11 +597,6 @@ sendCommand("page 4");
 CPage = 4;
 }
 
-void backSetPopCallback()
-{   
-sendCommand("page 2");
-CPage = 2;
-}
 
 
 
