@@ -15,12 +15,10 @@ Hardware and Software based on arduino mega and Nextion lcd touchscreen designed
      
 <h2>To Do</h2> 
 
-  - [ ] Power off on DC fail function
-  - [ ] Power off on supply fail function
+  - [X] Power off on DC fail function
   - [X] Limit Fan threshold
-  - [ ] Delay for channel restart
+  - [X] Delay for channel start
   - [X] Test clip feedback
-  - [ ] Save to eeprom feedback
   - [ ] Record Uptime
   - [X] Arduino feedback to lcd for Lift Chassis, Volume Synchronisation
   - [X] Arduino feedback to lcd for Lift Input and Filter Channels 1 2
