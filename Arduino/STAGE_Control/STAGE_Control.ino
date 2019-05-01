@@ -29,6 +29,7 @@ int unsigned timer4_ProcSignal = 3500;
 int unsigned timer5_ProcClip = 2000;
 int unsigned timer6_ProcSupply = 1000;
 int unsigned timer7_ProcInfo = 3000;
+int unsigned timer8_ChPwr = 30000;
 
 /*******************************************************************
  * Default EEPROM Values
@@ -92,6 +93,8 @@ long unsigned int LastMillis4=0;
 long unsigned int LastMillis5=0;
 long unsigned int LastMillis6=0;
 long unsigned int LastMillis7=0;
+long unsigned int LastPwr1Millis=0;
+long unsigned int LastPwr2Millis=0;
 
 #include "VolumeTable.h"
 #include "InitAmp.h"

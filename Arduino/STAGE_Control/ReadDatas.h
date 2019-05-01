@@ -166,7 +166,7 @@ void ProcessSupply(){
   //Serial.print("Supply 1 :");
   //Serial.println(Supply_1);
   //Serial.print("Supply 2 :");
-  //Serial.println(Supply_2);  
+  //Serial.println(Supply_2);    
   if(CPage==2){
     if(supply[0]>800) 
       {

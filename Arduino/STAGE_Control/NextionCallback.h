@@ -19,15 +19,21 @@
  **************************************/
 void Pch1PopCallback()
 {
-    if(supply[0]<800 && PowerState[0] == 0 && dc[0] == 1) 
+    if(supply[0]<800 && PowerState[0] == 0 && dc[0] == 1 && millis() - LastPwr1Millis > timer8_ChPwr)
     {
     sendHC(2,0);  //Power
     delay(400);
     sendHC(3,0);  // Out
     Ch1Pwr.setValue(1);
+    LastPwr1Millis=millis();
     PowerState[0] = 1;
     msg.setText("Ch1 ON");
     LastMillis1=millis();
+    }
+    else if(supply[0]<800 && PowerState[0] == 0 && dc[0] == 1 && millis() - LastPwr1Millis < timer8_ChPwr) 
+    {
+      msg.setText("Wait for Ch1 ON");
+      LastMillis1=millis();
     }
     else if (supply[0]>800 && PowerState[0] == 1)
     {
@@ -73,16 +79,23 @@ void Vmin1PopCallback(void *ptr)
 void Pch2PopCallback()
 {
     
-    if(supply[1]<800 && PowerState[1] == 0 && dc[1] == 1) 
+    if(supply[1]<800 && PowerState[1] == 0 && dc[1] == 1 && millis() - LastPwr2Millis > timer8_ChPwr) 
     {
     sendHC(2,1);  //Power
     delay(400);
     sendHC(3,1);  // Out
     Ch2Pwr.setValue(1);
     PowerState[1] = 1;
+    LastPwr2Millis=millis();
     msg.setText("Ch2 ON");
     LastMillis1=millis();
     }
+    else if(supply[1]<800 && PowerState[1] == 0 && dc[1] == 1 && millis() - LastPwr2Millis < timer8_ChPwr) 
+    {
+      msg.setText("Wait for Ch2 ON");
+      LastMillis1=millis();
+    }
+    
     else if (supply[1]>800 && PowerState[1] == 1)
     {
     sendHC(3,1);  // Out
