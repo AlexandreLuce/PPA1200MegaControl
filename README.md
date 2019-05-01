@@ -20,6 +20,7 @@ Hardware and Software based on arduino mega and Nextion lcd touchscreen designed
   - [X] Delay for channel start
   - [X] Test clip feedback
   - [ ] Record Uptime
+  - [ ] Auto Start Function
   - [X] Arduino feedback to lcd for Lift Chassis, Volume Synchronisation
   - [X] Arduino feedback to lcd for Lift Input and Filter Channels 1 2
   - [ ] Improve 3d part with a sliding cover, and better lcd panel fixing 
