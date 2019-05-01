@@ -126,42 +126,49 @@ void Vmin2PopCallback(void *ptr)
 /**************************************
  * Chassis Lift
  **************************************/
-void CliftPopCallback(void *ptr)
+void SelectCliftPopCallback(void *ptr)
 {
-    uint32_t dual_state;
-    NexDSButton *btn = (NexDSButton *)ptr;
-    memset(buffer, 0, sizeof(buffer));
 
-    /* Get the state value of dual state button component . */
-    Clift.getValue(&dual_state);
-    if(dual_state==1) 
+    if(CliftState == 0) 
     {
     sendHC(4,0);
+    Clift.setValue(1);
+    Clift.setText("Chassis Lift Active");
+    CliftState = 1;
     }
-    else
+    else if(CliftState == 1) 
     {
     sendHC(4,0);
+    Clift.setValue(0);
+    Clift.setText("Chassis Lift Inactive");
+    CliftState = 0;
     }
+}
+
+/**************************************
+ * Bridge
+ **************************************/
+void SelectbridgePopCallback(void *ptr)
+{
+
 }
 
 /**************************************
  * Volume Sync
  **************************************/
-void VolSyncPopCallback(void *ptr)
+void SelectVolSyncPopCallback(void *ptr)
 {
-    uint32_t dual_state;
-    NexDSButton *btn = (NexDSButton *)ptr;
-    memset(buffer, 0, sizeof(buffer));
-
-    /* Get the state value of dual state button component . */
-    VolSync.getValue(&dual_state);
-    if(dual_state==1) 
-    {
-    VolSyncState = 1;
-    }
-    else
+    if(VolSyncState == 1) 
     {
     VolSyncState = 0;
+    VolSync.setValue(0);
+    VolSync.setText("Volume Sync Inactive");
+    }
+    else if (VolSyncState == 0)
+    {
+    VolSyncState = 1;
+    VolSync.setValue(1);
+    VolSync.setText("Volume Sync Active");
     }
 }
 
@@ -170,13 +177,17 @@ void VolSyncPopCallback(void *ptr)
  **************************************/
 void FTplusPopCallback(void *ptr)
 {   
-    FanTemp = FanTemp + 1;      
+  if (FanTemp < 65){
+    FanTemp = FanTemp + 1;    
+  }  
     FTemp.setValue(FanTemp);  
 }
 
 void FTminPopCallback(void *ptr)
 {   
-    FanTemp = FanTemp - 1;        
+  if (FanTemp > 20){
+    FanTemp = FanTemp - 1;   
+  }     
     FTemp.setValue(FanTemp);  
 }
 
@@ -185,16 +196,9 @@ void FTminPopCallback(void *ptr)
  **************************************/
 void savesetPopCallback(void *ptr)
 {  
-  uint32_t liftc_state; 
-Clift.getValue(&liftc_state);
-EEPROM.update(3, liftc_state);
-uint32_t sync_state;
-VolSync.getValue(&sync_state);
-EEPROM.update(1, sync_state);
-uint32_t bridge_state;
-bridge.getValue(&bridge_state);
-EEPROM.update(20, bridge_state);
-
+EEPROM.update(3, CliftState);
+EEPROM.update(1, VolSyncState);
+EEPROM.update(20, bridgeState);
 EEPROM.update(0, FanTemp);
 
 }
@@ -208,31 +212,32 @@ EEPROM.update(0, FanTemp);
 /**************************************
  * Input Lift
  **************************************/
-void lift1PopCallback(void *ptr)
+void Selectlift1PopCallback(void *ptr)
 {
-    uint32_t dual_state;
-    NexDSButton *btn = (NexDSButton *)ptr;
-    memset(buffer, 0, sizeof(buffer));
-
-    /* Get the state value of dual state button component . */
-    lift1.getValue(&dual_state);
-    if(dual_state) 
+    if(LiftState[0] == 0) 
     {
+    lift1.setValue(1);
+    lift1.setText("Input Lift Active");
     sendHC(0,0);
+    LiftState[0] = 1;
     }
-    else
+    else if(LiftState[0] == 1) 
     {
+    lift1.setValue(0);
+    lift1.setText("Input Lift Inactive");
     sendHC(0,0);
+    LiftState[0] = 0;
     }
 }
 /**************************************
  * Filter activation
  **************************************/
-void filter1PopCallback(void *ptr)
+void Selectfilter1PopCallback(void *ptr)
 {
-    if(FilterState[0]==0) 
+    if(FilterState[0] == 0) 
     {
       filter1.setValue(1);
+      filter1.setText("Filter Active");
       FilterState[0]=1;
       setAmp = 0;
       sendHC(3,setAmp);
@@ -241,10 +246,11 @@ void filter1PopCallback(void *ptr)
       delay(300);
       sendHC(3,setAmp);
     }
-    else if(FilterState[0]==1) 
+    else if(FilterState[0] == 1) 
     {
       filter1.setValue(0);
       FilterState[0]=0;
+      filter1.setText("Filter Inactive");
       setAmp = 0;
       sendHC(3,setAmp);
       delay(100);
@@ -316,9 +322,7 @@ void MvolDw1PopCallback(void *ptr)
 void save1PopCallback(void *ptr)
 {   
   EEPROM.update(5, FilterState[0]);
-  uint32_t lift1_state;
-  lift1.getValue(&lift1_state);
-  EEPROM.update(4, lift1_state);
+  EEPROM.update(4, LiftState[0]);
   EEPROM.update(7, MaxVol[0]);
   EEPROM.update(6, StartVol[0]);
   EEPROM.update(18, VolumeStep[0]);
@@ -333,37 +337,34 @@ void save1PopCallback(void *ptr)
 /**************************************
  * Input Lift
  **************************************/
-void lift2PopCallback(void *ptr)
+void Selectlift2PopCallback(void *ptr)
 {
-    uint32_t dual_state;
-    NexDSButton *btn = (NexDSButton *)ptr;
-    memset(buffer, 0, sizeof(buffer));
-
-    /* Get the state value of dual state button component . */
-    lift2.getValue(&dual_state);
-    if(dual_state) 
+    if(LiftState[1] == 0) 
     {
+    lift2.setValue(1);
+    lift2.setText("Input Lift Active");
     sendHC(0,1);
+    LiftState[1] = 1;
     }
-    else
+    else if(LiftState[1] == 1) 
     {
+    lift2.setValue(0);
+    lift2.setText("Input Lift Inactive");
     sendHC(0,1);
+    LiftState[1] = 0;
     }
 }
 
 /**************************************
  * Filter activation
  **************************************/
-void filter2PopCallback(void *ptr)
+void Selectfilter2PopCallback(void *ptr)
 {
-    uint32_t dual_state;
-    NexDSButton *btn = (NexDSButton *)ptr;
-    memset(buffer, 0, sizeof(buffer));
-
-    /* Get the state value of dual state button component . */
-    filter2.getValue(&dual_state);
-    if(dual_state) 
+     if(FilterState[1] == 0) 
     {
+      filter2.setValue(1);
+      filter2.setText("Filter Active");
+      FilterState[1]=1;
       setAmp = 1;
       sendHC(3,setAmp);
       delay(100);
@@ -371,8 +372,11 @@ void filter2PopCallback(void *ptr)
       delay(300);
       sendHC(3,setAmp);
     }
-    else
+    else if(FilterState[1]==1) 
     {
+      filter2.setValue(0);
+      FilterState[1]=0;
+      filter2.setText("Filter Inactive");
       setAmp = 1;
       sendHC(3,setAmp);
       delay(100);
@@ -441,12 +445,8 @@ void MvolDw2PopCallback(void *ptr)
  **************************************/
 void save2PopCallback(void *ptr)
 {   
-  uint32_t filter2_state;
-  filter2.getValue(&filter2_state);
-  EEPROM.update(9, filter2_state);
-  uint32_t lift2_state;
-  lift2.getValue(&lift2_state);
-  EEPROM.update(8, lift2_state);
+  EEPROM.update(9, FilterState[1]);
+  EEPROM.update(8, LiftState[1]);
   EEPROM.update(11, MaxVol[1]);
   EEPROM.update(15, StartVol[1]);
   EEPROM.update(16, VolumeStep[1]);

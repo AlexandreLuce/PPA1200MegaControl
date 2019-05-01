@@ -105,8 +105,11 @@ NexButton backSet(Settings, 2, "backSet");
  *******************************************************************/
 
 NexDSButton Clift(CmonSettings, 1, "Clift");
+NexHotspot SelectClift(CmonSettings, 11, "SelectClift");
 NexDSButton bridge (CmonSettings, 2, "bridge");
+NexHotspot Selectbridge(CmonSettings, 12, "Selectbridge");
 NexDSButton VolSync(CmonSettings, 3, "VolSync");
+NexHotspot SelectVolSync(CmonSettings, 13, "SelectVolSync");
 NexNumber FTemp(CmonSettings,9,"FTemp");
 NexButton FTplus(CmonSettings, 8, "FTplus");
 NexButton FTmin(CmonSettings, 7, "FTmin");
@@ -118,7 +121,9 @@ NexButton saveset(CmonSettings, 5, "saveset");
  *******************************************************************/
 
 NexDSButton lift1(Ch1Settings, 2, "lift1");
+NexHotspot Selectlift1(Ch1Settings, 18, "Selectlift1");
 NexDSButton filter1(Ch1Settings, 3, "filter1");
+NexHotspot Selectfilter1(Ch1Settings, 19, "Selectfilter1");
 NexButton VolStepDw1(Ch1Settings, 14, "VolStepDw1");
 NexButton VolStepUp1(Ch1Settings, 15, "VolStepUp1");
 NexNumber VolStep1(Ch1Settings, 16,"VolStep1");
@@ -136,7 +141,9 @@ NexButton save1(Ch1Settings, 7, "save1");
  *******************************************************************/
 
 NexDSButton lift2(Ch2Settings, 2, "lift2");
+NexHotspot Selectlift2(Ch2Settings, 18, "Selectlift2");
 NexDSButton filter2(Ch2Settings, 3, "filter2");
+NexHotspot Selectfilter2(Ch2Settings, 19, "Selectfilter2");
 NexButton VolStepDw2(Ch2Settings, 14, "VolStepDw2");
 NexButton VolStepUp2(Ch2Settings, 15, "VolStepUp2");
 NexNumber VolStep2(Ch2Settings, 16,"VolStep2");
@@ -193,21 +200,21 @@ NexTouch *nex_listen_list[] = {
   &Vplus2,
   &Vmin2,
   &Pch2,
-  &Clift,
-  &bridge,
-  &VolSync,
+  &SelectClift,
+  &Selectbridge,
+  &SelectVolSync,
   &FTplus,
   &FTmin,
   &saveset,
-  &lift1,
-  &filter1,
+  &Selectlift1,
+  &Selectfilter1,
   &SvolUp1,
   &SvolDw1,
   &MvolUp1,
   &MvolDw1,
   &save1,
-  &lift2,
-  &filter2,
+  &Selectlift2,
+  &Selectfilter2,
   &SvolUp2,
   &SvolDw2,
   &MvolUp2,

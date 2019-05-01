@@ -20,11 +20,11 @@ Vmin2.attachPop(Vmin2PopCallback, &Vmin2);
 Vplus1.attachPop(Vplus1PopCallback, &Vplus1);
 Vplus2.attachPop(Vplus2PopCallback, &Vplus2);
 
-lift1.attachPop(lift1PopCallback, &lift1);
-lift2.attachPop(lift2PopCallback, &lift2);
+Selectlift1.attachPop(Selectlift1PopCallback, &Selectlift1);
+Selectlift2.attachPop(Selectlift2PopCallback, &Selectlift2);
 
-filter1.attachPop(filter1PopCallback, &filter1);
-filter2.attachPop(filter2PopCallback, &filter2);
+Selectfilter1.attachPop(Selectfilter1PopCallback, &Selectfilter1);
+Selectfilter2.attachPop(Selectfilter2PopCallback, &Selectfilter2);
 
 SvolUp1.attachPop(SvolUp1PopCallback, &SvolUp1);
 SvolUp2.attachPop(SvolUp2PopCallback, &SvolUp2);
@@ -38,8 +38,9 @@ SvolDw2.attachPop(SvolDw2PopCallback, &SvolDw2);
 MvolDw1.attachPop(MvolDw1PopCallback, &MvolDw1);
 MvolDw2.attachPop(MvolDw2PopCallback, &MvolDw2);
 
-Clift.attachPop(CliftPopCallback, &Clift);
-VolSync.attachPop(VolSyncPopCallback, &VolSync);
+SelectClift.attachPop(SelectCliftPopCallback, &SelectClift);
+SelectVolSync.attachPop(SelectVolSyncPopCallback, &SelectVolSync);
+Selectbridge.attachPop(SelectbridgePopCallback, &Selectbridge);
 FTmin.attachPop(FTminPopCallback, &FTmin);
 FTplus.attachPop(FTplusPopCallback, &FTplus);
 
