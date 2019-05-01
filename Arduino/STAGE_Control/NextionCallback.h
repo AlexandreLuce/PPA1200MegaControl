@@ -230,14 +230,10 @@ void lift1PopCallback(void *ptr)
  **************************************/
 void filter1PopCallback(void *ptr)
 {
-    uint32_t dual_state;
-    NexDSButton *btn = (NexDSButton *)ptr;
-    memset(buffer, 0, sizeof(buffer));
-
-    /* Get the state value of dual state button component . */
-    filter1.getValue(&dual_state);
-    if(dual_state) 
+    if(FilterState[0]==0) 
     {
+      filter1.setValue(1);
+      FilterState[0]=1;
       setAmp = 0;
       sendHC(3,setAmp);
       delay(100);
@@ -245,8 +241,10 @@ void filter1PopCallback(void *ptr)
       delay(300);
       sendHC(3,setAmp);
     }
-    else
+    else if(FilterState[0]==1) 
     {
+      filter1.setValue(0);
+      FilterState[0]=0;
       setAmp = 0;
       sendHC(3,setAmp);
       delay(100);
@@ -312,12 +310,12 @@ void MvolDw1PopCallback(void *ptr)
     mVol1.setValue(MaxVol[0]);  
 }
 
-//Save
+/**************************************
+ * Save
+ **************************************/
 void save1PopCallback(void *ptr)
 {   
-  uint32_t filter1_state;
-  filter1.getValue(&filter1_state);
-  EEPROM.update(5, filter1_state);
+  EEPROM.update(5, FilterState[0]);
   uint32_t lift1_state;
   lift1.getValue(&lift1_state);
   EEPROM.update(4, lift1_state);
