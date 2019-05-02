@@ -20,6 +20,7 @@ Hardware and Software based on arduino mega and Nextion lcd touchscreen designed
   - [X] Delay for channel start
   - [X] Test clip feedback
   - [ ] Improve volume function in bridge mode (sync com with AD7545)
+  - [ ] Fix volume function => Start/Steps
   - [ ] Record Uptime
   - [X] Auto Start Function
   - [X] Arduino feedback to lcd for Lift Chassis, Volume Synchronisation
