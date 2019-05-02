@@ -8,7 +8,7 @@ void InitLcd(){
 // Initialisation de la librairie ITEAD pour Nextion.
 nexInit();
 attachNextion();
-delay(1500);
+delay(1000);
 //Init LCD
 ImVol1.setValue(MaxVol[0]);
 ImVol2.setValue(MaxVol[1]);
@@ -24,9 +24,11 @@ iFilter2.setValue(FilterState[1]);
 iBridge.setValue(bridgeState);
 iVolStep1.setValue(VolumeStep[0]);
 iVolStep2.setValue(VolumeStep[1]);
-delay (500);
+iAutoStart1.setValue(AutoStartState[0]);
+iAutoStart2.setValue(AutoStartState[1]);
+delay (100);
 sendCommand("page 1");
-delay (1000);
+delay (500);
 ProcessDC();
 ProcessSignal();
 ProcessClip();
@@ -44,8 +46,6 @@ ProcessSupply();
 ProcessTemp();
 Temp1.setValue(Temp[0]);
 Temp2.setValue(Temp[1]);
-msg.setText("Init OK");
-LastMillis1=millis();
 }
 
 /*******************************************************
@@ -55,6 +55,44 @@ LastMillis1=millis();
 
 void blankmsg(){
   if (CPage == 2 || CPage == 3){
-  msg.setText("               ");
+  msg.setText("                 ");
   }
+}
+
+/*******************************************************
+* Wait Message for start
+* 
+*******************************************************/
+
+void waitmsg(){
+  int msgdelay = 5000;
+  msg.setText("Wait 55 seconds");  
+  delay(msgdelay);
+  msg.setText("Wait 50 seconds");
+  delay(msgdelay);
+  msg.setText("Wait 45 seconds");
+  delay(msgdelay);
+  msg.setText("Wait 40 seconds");
+  delay(msgdelay);
+  msg.setText("Wait 35 seconds");
+  delay(msgdelay);
+  msg.setText("Wait 30 seconds");
+  delay(msgdelay);
+  msg.setText("Wait 25 seconds");
+  delay(msgdelay);
+  msg.setText("Wait 20 seconds");
+  delay(msgdelay);
+  msg.setText("Wait 15 seconds");
+  delay(msgdelay);
+  msg.setText("Wait 10 seconds");
+  delay(msgdelay);
+  msg.setText("Wait 5 seconds");
+  delay(1000);
+  msg.setText("Wait 4 seconds");
+  delay(1000);
+  msg.setText("Wait 3 seconds");
+  delay(1000);
+  msg.setText("Wait 2 seconds");
+  delay(1000);
+  msg.setText("Wait 1 seconds");
 }

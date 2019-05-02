@@ -36,6 +36,10 @@ void Pch1PopCallback()
     }
     else if (supply[0]>800 && PowerState[0] == 1)
     {
+    for( byte v = MaxVol[0]; v > 0; v=v-1) {
+      Volume(LOW,0);
+      Vol1.setValue(Volval[0]);
+    }
     sendHC(3,0);  // Out
     delay(100);
     sendHC(2,0);  // Power
@@ -156,7 +160,7 @@ void PowerPopCallback()
     LastPwr2Millis=millis();
     PowerState[0] = 1;
     PowerState[1] = 1;
-    msgBR.setText("Power ON");
+    msg.setText("Power ON");
     LastMillis1=millis();
     }
     else if(supply[0]<800 && PowerState[0] == 0 && dc[0] == 1 && millis() - LastPwr1Millis < timer8_ChPwr || supply[1]<800 && PowerState[1] == 0 && dc[1] == 1 && millis() - LastPwr2Millis < timer8_ChPwr) 
@@ -290,6 +294,40 @@ void SelectVolSyncPopCallback()
 }
 
 /**************************************
+ * AutoStart 1 activation
+ **************************************/
+void SAutostart1PopCallback()
+{
+  if(AutoStartState[0] == 0) 
+  {
+    AutoStartState[0] = 1;
+    Autostart1.setValue(1); 
+  }
+  else if(AutoStartState[0] == 1) 
+  {
+    AutoStartState[0] = 0;
+    Autostart1.setValue(0); 
+  }
+}
+
+/**************************************
+ * AutoStart 2 activation
+ **************************************/
+void SAutostart2PopCallback()
+{
+  if(AutoStartState[1] == 0) 
+  {
+    AutoStartState[1] = 1;
+    Autostart2.setValue(1);  
+  }
+  else if(AutoStartState[1] == 1) 
+  {
+    AutoStartState[1] = 0;
+    Autostart2.setValue(0);
+  }
+}
+ 
+/**************************************
  * Fan activation temperature
  **************************************/
 void FTplusPopCallback()
@@ -317,7 +355,8 @@ EEPROM.update(3, CliftState);
 EEPROM.update(1, VolSyncState);
 EEPROM.update(20, bridgeState);
 EEPROM.update(0, FanTemp);
-
+EEPROM.update(22, AutoStartState[0]);
+EEPROM.update(24, AutoStartState[1]);
 }
 
 /***********************************

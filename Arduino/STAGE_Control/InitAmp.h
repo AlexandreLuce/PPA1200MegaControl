@@ -32,7 +32,7 @@ void InitBus(){
     for(int i=0; i<2; i=i+1) pinMode(CS_HC[i], OUTPUT);
     for(int i=0; i<2; i=i+1) pinMode(CS_AD[i], OUTPUT);
     
-   if (CliftState==1){
+   if (CliftState == 1){
     HCbusvalue[0][4] = 1;
     //Serial.println("Chassis Lift State ON");
    }
@@ -40,7 +40,7 @@ void InitBus(){
     HCbusvalue[0][4] = 0;
     //Serial.println("Chassis Lift State OFF");
    }
-  if (LiftState[0]==1){
+  if (LiftState[0] == 1){
     HCbusvalue[0][0] = 1;
     //Serial.println("Lift 1 State ON");
    }
@@ -48,7 +48,7 @@ void InitBus(){
     HCbusvalue[0][0] = 0;
     //Serial.println("Lift 1 State OFF");
    }
-  if (FilterState[0]==1){
+  if (FilterState[0] == 1){
     HCbusvalue[0][5] = 1;
     //Serial.println("Filter 1 State ON");
    }
@@ -56,7 +56,7 @@ void InitBus(){
     HCbusvalue[0][5] = 0;
     //Serial.println("Filter 1 State OFF");
    }
-  if (LiftState[1]==1){
+  if (LiftState[1] == 1){
     HCbusvalue[1][0] = 1;
     //Serial.println("Lift 2 State ON");
    }
@@ -64,7 +64,7 @@ void InitBus(){
     HCbusvalue[1][0] = 0;
     //Serial.println("Lift 2 State OFF");
    }
-  if (FilterState[1]==1){
+  if (FilterState[1] == 1){
     HCbusvalue[1][5] = 1;
     //Serial.println("Filter 2 State ON");
    }
@@ -72,7 +72,7 @@ void InitBus(){
     HCbusvalue[1][5] = 0;
     //Serial.println("Filter 2 State OFF");
    } 
-     if (bridgeState==1){
+     if (bridgeState == 1){
     HCbusvalue[0][1] = 1;
     HCbusvalue[1][1] = 1;
     //Serial.println("Bridge State ON");
@@ -116,12 +116,64 @@ digitalWrite(CS_HC[setCH], LOW);
 //Serial.print("Init "); 
 //Serial.print(setCH);
 //Serial.println(" HC Done");
+}
 
-//Serial.print("StartVolume CH");
-//Serial.print(setCH);
-//Serial.print(" :");
-//Serial.println(StartVol[setCH]);
-for(int v=0; v < StartVol[setCH]; v=v+1) {
-     Volume(HIGH,setCH);
+void AutoStart(){  
+if(AutoStartState[0] == 1 || AutoStartState[1] == 1 && bridgeState == 0){
+  msg.setText("AutoStart");
+  delay(5000);
+  if(AutoStartState[0] == 1 && AutoStartState[1] == 1){    
+    msg.setText("AutoStart Ch1 Ch2");
+    delay(5000);
+    waitmsg();
+    Pch1PopCallback();
+    delay(2000);
+    Pch2PopCallback();
+  }
+  else if(AutoStartState[0] == 1 && AutoStartState[1] == 0){    
+    msg.setText("AutoStart Ch1");
+    delay(5000);
+    waitmsg();
+    Pch1PopCallback();
+  }
+  else if(AutoStartState[0] == 0 && AutoStartState[1] == 1){    
+    msg.setText("AutoStart Ch2");
+    delay(5000);
+    waitmsg();
+    Pch2PopCallback();
+  }
+}
+else if(AutoStartState[0] == 0 && AutoStartState[1] == 0){
+  waitmsg();  
+}
+
+if(bridgeState == 0){  
+  msg.setText("Start Volume Ch1");
+  byte setCH = 0;
+  for( byte v = 0; v < StartVol[setCH]; v=v+1) {
+       delay(80);
+       Volume(HIGH,setCH);
+       Vol1.setValue(Volval[0]);
+  }
+  msg.setText("Start Volume Ch2");
+  setCH = 1;
+    for( byte v = 0; v < StartVol[setCH]; v=v+1) {
+         delay(80);
+         Volume(HIGH,setCH);
+         Vol2.setValue(Volval[1]);
+    }
+  
+}
+else if(bridgeState == 1){  
+msg.setText("Set Start Volume");
+for(byte v = 0; v < StartVol[0]; v=v+1) {
+     delay(80);
+     Volume(HIGH,0);
+     Volume(HIGH,1);
+     Vol.setValue(Volval[0]);
    }
+}
+
+msg.setText("Init OK");
+LastMillis1=millis(); 
 }

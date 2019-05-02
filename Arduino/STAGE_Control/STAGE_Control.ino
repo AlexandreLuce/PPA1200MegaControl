@@ -29,7 +29,7 @@ int unsigned timer4_ProcSignal = 3500;
 int unsigned timer5_ProcClip = 2000;
 int unsigned timer6_ProcSupply = 1000;
 int unsigned timer7_ProcInfo = 3000;
-int unsigned timer8_ChPwr = 30000;
+int unsigned timer8_ChPwr = 20000;
 
 /*******************************************************************
  * Default EEPROM Values
@@ -43,6 +43,7 @@ byte unsigned VolSyncState = 0;
 byte unsigned CliftState = 0;
 byte unsigned LiftState[2] = {0,0};
 byte unsigned FilterState[2] = {0,0};
+byte unsigned AutoStartState[2] = {0,0};
 byte unsigned bridgeState = 0;
 int unsigned FanTemp = 30;
 
@@ -72,7 +73,7 @@ byte unsigned ADpin = ADbus;
 long unsigned int Cmillis;
 
 //Store Info Bus
-int unsigned supply [2] = {0,0};
+int unsigned supply[2] = {0,0};
 byte unsigned dc[2] = {0,0};
 byte unsigned signl[2] = {0,0};
 byte unsigned clip[2] = {0,0};
@@ -86,15 +87,15 @@ byte unsigned  CPage = 0;
 
 char buffer[100] = {0};
 
-long unsigned int LastMillis1=0;
-long unsigned int LastMillis2=0;
-long unsigned int LastMillis3=0;
-long unsigned int LastMillis4=0;
-long unsigned int LastMillis5=0;
-long unsigned int LastMillis6=0;
-long unsigned int LastMillis7=0;
-long unsigned int LastPwr1Millis=0;
-long unsigned int LastPwr2Millis=0;
+long unsigned int LastMillis1 = 0;
+long unsigned int LastMillis2 = 0;
+long unsigned int LastMillis3 = 0;
+long unsigned int LastMillis4 = 0;
+long unsigned int LastMillis5 = 0;
+long unsigned int LastMillis6 = 0;
+long unsigned int LastMillis7 = 0;
+long unsigned int LastPwr1Millis = 0;
+long unsigned int LastPwr2Millis = 0;
 
 #include "InitAmp.h"
 
@@ -117,6 +118,7 @@ InitAmp(0);
 InitAmp(1);
 //Init Lcd
 InitLcd();
+AutoStart();
 }
 
 /*******************************************************

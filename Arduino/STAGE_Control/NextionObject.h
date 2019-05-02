@@ -36,6 +36,8 @@ NexNumber iFilter2(Init,13,"iFilter2");
 NexNumber iBridge(Init,14,"iBridge");
 NexNumber iVolStep1(Init,15,"iVolStep1");
 NexNumber iVolStep2(Init,16,"iVolStep2");
+NexNumber iAutoStart1(Init,17,"iAutoStart1");
+NexNumber iAutoStart2(Init,18,"iAutoStart2");
 
 /*******************************************************************
  * Nextion component for page 2 : Home
@@ -114,6 +116,11 @@ NexNumber FTemp(CmonSettings,9,"FTemp");
 NexButton FTplus(CmonSettings, 8, "FTplus");
 NexButton FTmin(CmonSettings, 7, "FTmin");
 NexButton saveset(CmonSettings, 5, "saveset");
+NexDSButton Autostart1(CmonSettings, 14, "Autostart1");
+NexHotspot SAutostart1(CmonSettings, 16, "SAutostart1");
+NexDSButton Autostart2(CmonSettings, 15, "Autostart2");
+NexHotspot SAutostart2(CmonSettings, 17, "SAutostart2");
+
 
 /*******************************************************************
  * Nextion component for page 6 : Ch1Settings
@@ -229,5 +236,7 @@ NexTouch *nex_listen_list[] = {
   &VolStepDw1,
   &VolStepUp2,
   &VolStepDw2,
+  &SAutostart1,
+  &SAutostart2,
   NULL
 };
