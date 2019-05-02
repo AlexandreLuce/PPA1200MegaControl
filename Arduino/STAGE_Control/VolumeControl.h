@@ -49,3 +49,48 @@ void Volume(bool dir, byte setCH){
   //Serial.print("Volume Value 1:");
   //Serial.println(Volval[1]); 
 }
+
+void VolumeStop(byte setCH){
+  for(int i=0; i<12; i=i+1) {
+    Volval[setCH] = 0;
+    bitval = ADVol[Volval[setCH]][ADpin];
+    if (bitval == 0) {
+       digitalWrite(buspins[i], LOW);
+       //Serial1.print("0");
+       
+       }
+     else if (bitval == 1) {
+       digitalWrite(buspins[i], HIGH);
+       //Serial1.print("1");
+       }
+     ADpin = ADpin - 1;  
+  } 
+  ADpin = ADbus;  
+  digitalWrite(CS_HC[setCH], LOW);           
+  digitalWrite(CS_AD[setCH], LOW);
+  delayMicroseconds(50);
+  digitalWrite(CS_AD[setCH], HIGH);
+  Volval[setCH] = 0; 
+}
+
+ void VolumeStart(byte setCH){
+  Volval[setCH] = StartVol[setCH];
+  for(int i=0; i<12; i=i+1) {
+    bitval = ADVol[Volval[setCH]][ADpin];
+    if (bitval == 0) {
+       digitalWrite(buspins[i], LOW);
+       //Serial1.print("0");
+       
+       }
+     else if (bitval == 1) {
+       digitalWrite(buspins[i], HIGH);
+       //Serial1.print("1");
+       }
+     ADpin = ADpin - 1;  
+  } 
+  ADpin = ADbus;  
+  digitalWrite(CS_HC[setCH], LOW);           
+  digitalWrite(CS_AD[setCH], LOW);
+  delayMicroseconds(50);
+  digitalWrite(CS_AD[setCH], HIGH);
+}

@@ -84,8 +84,6 @@ void InitBus(){
    }  
   }
 
-
-
 void InitAmp(byte setCH) {
 //Serial.print("Amp ");
 //Serial.print(setCH);
@@ -126,6 +124,7 @@ if(AutoStartState[0] == 1 || AutoStartState[1] == 1 && bridgeState == 0){
     msg.setText("AutoStart Ch1 Ch2");
     delay(5000);
     waitmsg();
+    delay(500);
     Pch1PopCallback();
     delay(2000);
     Pch2PopCallback();
@@ -134,46 +133,20 @@ if(AutoStartState[0] == 1 || AutoStartState[1] == 1 && bridgeState == 0){
     msg.setText("AutoStart Ch1");
     delay(5000);
     waitmsg();
+    delay(500);
     Pch1PopCallback();
   }
   else if(AutoStartState[0] == 0 && AutoStartState[1] == 1){    
     msg.setText("AutoStart Ch2");
     delay(5000);
     waitmsg();
+    delay(500);
     Pch2PopCallback();
   }
 }
 else if(AutoStartState[0] == 0 && AutoStartState[1] == 0){
   waitmsg();  
 }
-
-if(bridgeState == 0){  
-  msg.setText("Start Volume Ch1");
-  byte setCH = 0;
-  for( byte v = 0; v < StartVol[setCH]; v=v+1) {
-       delay(80);
-       Volume(HIGH,setCH);
-       Vol1.setValue(Volval[0]);
-  }
-  msg.setText("Start Volume Ch2");
-  setCH = 1;
-    for( byte v = 0; v < StartVol[setCH]; v=v+1) {
-         delay(80);
-         Volume(HIGH,setCH);
-         Vol2.setValue(Volval[1]);
-    }
-  
-}
-else if(bridgeState == 1){  
-msg.setText("Set Start Volume");
-for(byte v = 0; v < StartVol[0]; v=v+1) {
-     delay(80);
-     Volume(HIGH,0);
-     Volume(HIGH,1);
-     Vol.setValue(Volval[0]);
-   }
-}
-
 msg.setText("Init OK");
 LastMillis1=millis(); 
 }

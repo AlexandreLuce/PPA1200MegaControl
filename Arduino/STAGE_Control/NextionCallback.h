@@ -28,6 +28,8 @@ void Pch1PopCallback()
     PowerState[0] = 1;
     msg.setText("Ch1 ON");
     LastMillis1=millis();
+    VolumeStart(0);
+    Vol1.setValue(Volval[0]);
     }
     else if(supply[0]<800 && PowerState[0] == 0 && dc[0] == 1 && millis() - LastPwr1Millis < timer8_ChPwr) 
     {
@@ -36,10 +38,8 @@ void Pch1PopCallback()
     }
     else if (supply[0]>800 && PowerState[0] == 1)
     {
-    for( byte v = MaxVol[0]; v > 0; v=v-1) {
-      Volume(LOW,0);
-      Vol1.setValue(Volval[0]);
-    }
+    VolumeStop(0);
+    Vol1.setValue(Volval[0]);
     sendHC(3,0);  // Out
     delay(100);
     sendHC(2,0);  // Power
@@ -91,6 +91,8 @@ void Pch2PopCallback()
     PowerState[1] = 1;
     msg.setText("Ch2 ON");
     LastMillis1=millis();
+    VolumeStart(1);
+    Vol.setValue(Volval[1]);
     }
     else if(supply[1]<800 && PowerState[1] == 0 && dc[1] == 1 && millis() - LastPwr2Millis < timer8_ChPwr) 
     {
@@ -100,6 +102,8 @@ void Pch2PopCallback()
     
     else if (supply[1]>800 && PowerState[1] == 1)
     {
+    VolumeStop(1);
+    Vol2.setValue(Volval[1]);
     sendHC(3,1);  // Out
     delay(100);
     sendHC(2,1);  // Power
@@ -162,6 +166,10 @@ void PowerPopCallback()
     PowerState[1] = 1;
     msg.setText("Power ON");
     LastMillis1=millis();
+    StartVol[1] = StartVol[0];
+    VolumeStart(0);
+    VolumeStart(1);
+    Vol.setValue(Volval[0]);
     }
     else if(supply[0]<800 && PowerState[0] == 0 && dc[0] == 1 && millis() - LastPwr1Millis < timer8_ChPwr || supply[1]<800 && PowerState[1] == 0 && dc[1] == 1 && millis() - LastPwr2Millis < timer8_ChPwr) 
     {
@@ -170,6 +178,8 @@ void PowerPopCallback()
     }
     else if (supply[0]>800 && PowerState[0] == 1 && supply[1]>800 && PowerState[1] == 1)
     {
+    VolumeStop(0);
+    Vol.setValue(Volval[0]);
     sendHC(2,0);  // Out 1
     sendHC(2,1);  // Out 2
     delay(200);
