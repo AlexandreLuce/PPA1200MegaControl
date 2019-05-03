@@ -19,6 +19,8 @@ Hardware and Software based on arduino mega and Nextion lcd touchscreen designed
   - [X] Limit Fan threshold
   - [X] Delay for channel start
   - [X] Test clip feedback
+  - [ ] Implement fast ADC
+  - [ ] Implement fast digital write
   - [ ] Improve volume function in bridge mode (sync com with AD7545)
   - [X] Fix volume function => Start/Steps
   - [ ] Record Uptime
