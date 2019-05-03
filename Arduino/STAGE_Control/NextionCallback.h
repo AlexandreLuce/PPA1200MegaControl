@@ -92,7 +92,7 @@ void Pch2PopCallback()
     msg.setText("Ch2 ON");
     LastMillis1=millis();
     VolumeStart(1);
-    Vol.setValue(Volval[1]);
+    Vol2.setValue(Volval[1]);
     }
     else if(supply[1]<800 && PowerState[1] == 0 && dc[1] == 1 && millis() - LastPwr2Millis < timer8_ChPwr) 
     {

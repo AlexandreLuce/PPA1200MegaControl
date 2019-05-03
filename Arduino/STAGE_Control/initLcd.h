@@ -85,7 +85,15 @@ void waitmsg(){
   msg.setText("Wait 15 seconds");
   delay(msgdelay);
   msg.setText("Wait 10 seconds");
-  delay(msgdelay);
+  delay(1000);
+  msg.setText("Wait 9 seconds");
+  delay(1000);
+  msg.setText("Wait 8 seconds");
+  delay(1000);
+  msg.setText("Wait 7 seconds");
+  delay(1000);
+  msg.setText("Wait 6 seconds");
+  delay(1000);
   msg.setText("Wait 5 seconds");
   delay(1000);
   msg.setText("Wait 4 seconds");

@@ -24,11 +24,11 @@ const byte ibuspins[2][9] = {
 
 int unsigned timer1_lcdmsg = 10000;
 int unsigned timer2_ProcTemp = 30000;
-int unsigned timer3_ProcDC = 500;
-int unsigned timer4_ProcSignal = 3500;
-int unsigned timer5_ProcClip = 2000;
+int unsigned timer3_ProcDC = 1;
+int unsigned timer4_ProcSignal = 2000;
+int unsigned timer5_ProcClip = 50;
 int unsigned timer6_ProcSupply = 1000;
-int unsigned timer7_ProcInfo = 3000;
+int unsigned timer7_ProcInfo = 2000;
 int unsigned timer8_ChPwr = 20000;
 
 /*******************************************************************

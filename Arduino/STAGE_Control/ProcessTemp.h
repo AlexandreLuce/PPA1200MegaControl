@@ -19,7 +19,7 @@ void ProcessTemp(){
     FanState = 1;
     msg.setText("Fan ON"); 
   }
-  else if((Temp[0] < FanTemp-1 && Temp[1] < FanTemp-1) && FanState == 1){
+  else if((Temp[0] < FanTemp-2 && Temp[1] < FanTemp-1) && FanState == 1){
    sendHC(4,1);
    LastMillis1=millis();
    FanState = 0; 

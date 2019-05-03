@@ -6,8 +6,6 @@
 * 
 *******************************************************/
 
-
-
 /**************************************
  * DC
  * 
@@ -21,20 +19,23 @@ void ProcessDC(){
   //Serial.print("DC2 :");
   //Serial.println(DC2);
   if (dc[0] == 0 || dc[1] == 0) {
-    DC.Set_font_color_pco(63521);
-    msg.setText("DC Fail");
-    LastMillis1=millis();
     if(dc[0] == 0 && PowerState[0] == 1){
-          Pch1PopCallback();   
+      Pch1PopCallback();   
     }
     if(dc[1] == 0 && PowerState[1] == 1){
-           Pch2PopCallback();   
+      Pch2PopCallback();   
+    }
+    if(CPage==2 || CPage == 3){
+      DC.Set_font_color_pco(63521);
+      msg.setText("DC Fail");
+      LastMillis1=millis();
     }
   }
-  else { 
-    DC.Set_font_color_pco(34784); 
+  else if(CPage==2 || CPage == 3){
+    DC.Set_font_color_pco(34784);   
   }
-}
+  }
+
 
 /**************************************
  * Signal
