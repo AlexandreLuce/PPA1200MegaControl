@@ -6,10 +6,10 @@
  * 
  *******************************************************************/
 //Declare Control Bus
-const byte buspins[12] = {25, 23, 29, 27, 33, 31, 37, 35, 41, 39, 45, 43}; // bus 0,1,2,3,4,5,6,7,8,9,10,11
+const int buspins[12] = {25, 23, 29, 27, 33, 31, 37, 35, 41, 39, 45, 43}; // bus 0,1,2,3,4,5,6,7,8,9,10,11
 
-const byte CS_HC[2] = {51,53};    //Chip select 74HC373 Ch.1 Ch.2
-const byte CS_AD[2] = {49,47};   //Chip select AD7545 Ch.1 Ch.2
+const int CS_HC[2] = {51,53};    //Chip select 74HC373 Ch.1 Ch.2
+const int CS_AD[2] = {49,47};   //Chip select AD7545 Ch.1 Ch.2
 
 //Declare Datas Bus 
 const byte ibuspins[2][9] = {
@@ -107,12 +107,29 @@ long unsigned int LastPwr2Millis = 0;
 
 void setup()
 {
+//Init Pins
+//analogReference(DEFAULT);
+for(int i=0; i<12; i=i+1) pinMode(buspins[i], OUTPUT);  
+for(int i=0; i<2; i=i+1) pinMode(CS_HC[i], OUTPUT);
+for(int i=0; i<2; i=i+1) pinMode(CS_AD[i], OUTPUT);
+
+// INIT AD7545 //INIT 74HC373
+digitalWrite(buspins[12], LOW);
+digitalWrite(CS_HC[1], HIGH);
+digitalWrite(CS_HC[0], HIGH);
+digitalWrite(CS_AD[0], LOW);
+digitalWrite(CS_AD[1], LOW);
+delayMicroseconds(100);
+digitalWrite(CS_HC[0], LOW);
+digitalWrite(CS_HC[1], LOW);
+digitalWrite(CS_AD[0], HIGH);    
+digitalWrite(CS_AD[1], HIGH);
 //Init Serial 1
 //Serial.begin(9600);
 //Init EEPROM
 initEEprom();
 //Init Bus
-InitBus();
+InitStates();
 //Init Amp
 InitAmp(0);
 InitAmp(1);

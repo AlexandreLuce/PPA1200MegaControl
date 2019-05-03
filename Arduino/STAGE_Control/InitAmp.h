@@ -25,13 +25,8 @@
 #include "initLcd.h"
 #include "ProcessDatas.h"
 
-void InitBus(){
-    //Init Pins
-    //analogReference(DEFAULT);
-    for(int i=0; i<12; i=i+1) pinMode(buspins[i], OUTPUT);  
-    for(int i=0; i<2; i=i+1) pinMode(CS_HC[i], OUTPUT);
-    for(int i=0; i<2; i=i+1) pinMode(CS_AD[i], OUTPUT);
-    
+void InitStates(){
+      
    if (CliftState == 1){
     HCbusvalue[0][4] = 1;
     //Serial.println("Chassis Lift State ON");
@@ -72,7 +67,7 @@ void InitBus(){
     HCbusvalue[1][5] = 0;
     //Serial.println("Filter 2 State OFF");
    } 
-     if (bridgeState == 1){
+   if (bridgeState == 1){
     HCbusvalue[0][1] = 1;
     HCbusvalue[1][1] = 1;
     //Serial.println("Bridge State ON");
@@ -88,14 +83,6 @@ void InitAmp(byte setCH) {
 //Serial.print("Amp ");
 //Serial.print(setCH);
 //Serial.println(" Init");
-// INIT AD7545 //INIT 74HC373
-digitalWrite(CS_HC[setCH], LOW);
-digitalWrite(CS_AD[setCH], HIGH);
-digitalWrite(buspins[12], LOW);
-digitalWrite(CS_HC[setCH], LOW);
-digitalWrite(CS_AD[setCH], LOW);
-delayMicroseconds(100);
-digitalWrite(CS_AD[setCH], HIGH);
 //Serial.print("Init "); 
 //Serial.print(setCH);
 //Serial.println(" AD Done"); 
