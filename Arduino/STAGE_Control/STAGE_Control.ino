@@ -28,7 +28,7 @@ int unsigned timer3_ProcDC = 1;
 int unsigned timer4_ProcSignal = 1000;
 int unsigned timer5_ProcClip = 10;
 int unsigned timer6_ProcSupply = 250;
-int unsigned timer7_ProcInfo = 1000;
+int unsigned timer7_ProcInfo = 500;
 int unsigned timer8_ChPwr = 15000;
 
 /*******************************************************************
