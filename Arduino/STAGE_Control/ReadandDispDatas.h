@@ -185,7 +185,7 @@ void ProcessSupply(){
  *    1 Volt = 20 Volts = 204
  *    5 Volts = 100 Volts = 1024
  *    
- *    (U = root of Watts * Ohms) 
+ *    (U = root of (Watts * Ohms) ) 
  * 
  **************************************/
 
@@ -198,7 +198,7 @@ void ProcessPwrRMS(){
    rmsI[i] = map(rmsI[i], 0, 1023, 0, 25);
   }
   if (CPage==9){
-  rmsVCh1.setValue(rmsV[0]);
+  rmsVCh1.setValue(rmsV[0] - 7);
   rmsVCh2.setValue(rmsV[1]);
 
   rmsICh1.setValue(rmsI[0]);

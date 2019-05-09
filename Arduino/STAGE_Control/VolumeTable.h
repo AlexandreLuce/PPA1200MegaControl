@@ -89,3 +89,29 @@ const byte ADVol[81][12] = {
                           {1,1,1,1,1,0,1,0,1,1,0,1}, //4013
                           {1,1,1,1,1,1,1,1,1,1,1,1}, //4095
                           };
+
+
+
+/*******************************************************
+*
+*
+* Replace Table fonction
+* 
+* 
+*******************************************************/
+
+void replaceVolTable()
+{
+int myNum = 50;
+int zeros = String(myNum,BIN).length();//This will check for the length of myNum in binary.
+Serial.println(zeros); //For myNum = 50. You will get a 6.
+delay(1000);
+
+String myStr;
+for (int i=0; i < 16 - zeros; i++) {//This will add zero to string as need
+myStr = myStr + "0";
+}
+myStr = myStr + String(myNum,BIN);//Gives 0000000000110010
+Serial.println(myStr);
+delay(1000);
+}
