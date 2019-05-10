@@ -192,10 +192,10 @@ void ProcessSupply(){
 void ProcessPwrRMS(){
   for (int i=0; i<2; i=i+1){
    rmsV[i] = analogRead(ibuspins[i][5]);
-   rmsV[i] = map(rmsV[i], 0, 1023, 0, 100);
+   rmsV[i] = map(rmsV[i], 0, 1023, 0, 1000);
    
    rmsI[i] = analogRead(ibuspins[i][6]);
-   rmsI[i] = map(rmsI[i], 0, 1023, 0, 25);
+   rmsI[i] = map(rmsI[i], 0, 1023, 0, 250);
   }
   if (CPage==9){
   rmsVCh1.setValue(rmsV[0] - 7);
@@ -214,10 +214,10 @@ void ProcessPwrRMS(){
 void ProcessPwrPeak(){
   for (int i=0; i<2; i=i+1){
    peakV[i] = analogRead(ibuspins[i][7]);
-   peakV[i] = map(peakV[i], 0, 1023, 0, 100);
+   peakV[i] = map(peakV[i], 0, 1023, 0, 1000);
    
    peakI[i] = analogRead(ibuspins[i][4]);
-   peakI[i] = map(peakI[i], 0, 1023, 0, 25);
+   peakI[i] = map(peakI[i], 0, 1023, 0, 250);
   }
   if (CPage==9){
   peakVCh1.setValue(peakV[0]);
