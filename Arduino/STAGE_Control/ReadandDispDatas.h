@@ -126,11 +126,23 @@ void ProcessSupply(){
   //Serial.println(Supply_1);
   //Serial.print("Supply 2 :");
   //Serial.println(Supply_2);
-  if(supply[0]>800) 
+  for (int i=0; i<2; i=i+1){
+   if(supply[i]<800 && PowerState[i] == 1) 
+   {
+    msg.setText("Supply Fail");
+    LastMillis1=millis();
+    VolumeStop(i);
+    sendHC(3,i);  // Out
+    delay(100);
+    sendHC(2,i);  // Power
+    PowerState[i] = 0;
+   }
+  }
+  if(supply[0] > 800) 
   {
   LastPwr1Millis=millis();
   } 
-    if(supply[1]>800) 
+  if(supply[1] > 800) 
   {
   LastPwr2Millis=millis();
   }   
@@ -163,11 +175,11 @@ void ProcessSupply(){
       }
   }
   else if (CPage==9){
-    int supply1 = map(supply[0], 0, 1023, 0, 120);
-    supplyCh1.setValue(supply1);
+   int supply1 = map(supply[0], 0, 1023, 0, 120);
+   supplyCh1.setValue(supply1);
     
-    int supply2 = map(supply[1], 0, 1023, 0, 120);
-    supplyCh2.setValue(supply2);
+   int supply2 = map(supply[1], 0, 1023, 0, 120);
+   supplyCh2.setValue(supply2);
   }
 }
 
@@ -198,11 +210,11 @@ void ProcessPwrRMS(){
    rmsI[i] = map(rmsI[i], 0, 1023, 0, 250);
   }
   if (CPage==9){
-  rmsVCh1.setValue(rmsV[0] - 7);
-  rmsVCh2.setValue(rmsV[1]);
+   rmsVCh1.setValue(rmsV[0] - 70);
+   rmsVCh2.setValue(rmsV[1]);
 
-  rmsICh1.setValue(rmsI[0]);
-  rmsICh2.setValue(rmsI[1]);
+   rmsICh1.setValue(rmsI[0]);
+   rmsICh2.setValue(rmsI[1]);
   }
 }
 
@@ -220,11 +232,11 @@ void ProcessPwrPeak(){
    peakI[i] = map(peakI[i], 0, 1023, 0, 250);
   }
   if (CPage==9){
-  peakVCh1.setValue(peakV[0]);
-  peakVCh2.setValue(peakV[1]);
+   peakVCh1.setValue(peakV[0]);
+   peakVCh2.setValue(peakV[1]);
 
-  peakICh1.setValue(peakI[0]);
-  peakICh2.setValue(peakI[1]);
+   peakICh1.setValue(peakI[0]);
+   peakICh2.setValue(peakI[1]);
   }
 }
 
@@ -236,7 +248,11 @@ void ProcessPwrPeak(){
 void ProcessUpTime(){
 long unsigned int Cmillis = millis();
 Cmillis = Cmillis / 60000;
-if (CPage==9){
-timeUp.setValue(Cmillis);
+ if (CPage==9){
+  timeUp.setValue(Cmillis);
+ }
 }
-}
+
+/*******************************************************
+* End of File 
+*******************************************************/

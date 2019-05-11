@@ -137,3 +137,7 @@ else if(AutoStartState[0] == 0 && AutoStartState[1] == 0){
 msg.setText("Init OK");
 LastMillis1=millis(); 
 }
+
+/*******************************************************
+* End of File 
+*******************************************************/

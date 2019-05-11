@@ -24,3 +24,7 @@ bridgeState = EEPROM.read(20);
 AutoStartState[0] = EEPROM.read(22);
 AutoStartState[1] = EEPROM.read(24);
 }
+
+/*******************************************************
+* End of File 
+*******************************************************/

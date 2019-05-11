@@ -65,6 +65,10 @@ void blankmsg(){
 *******************************************************/
 
 void waitmsg(){
+  supply[0] = analogRead(ibuspins[0][0]);
+  supply[1] = analogRead(ibuspins[1][0]);
+  if(supply[0] > 25 || supply[1] > 25) 
+  {
   int msgdelay = 5000;
   msg.setText("Wait 55 seconds");  
   delay(msgdelay);
@@ -103,4 +107,9 @@ void waitmsg(){
   msg.setText("Wait 2 seconds");
   delay(1000);
   msg.setText("Wait 1 seconds");
+  } 
 }
+
+/*******************************************************
+* End of File 
+*******************************************************/

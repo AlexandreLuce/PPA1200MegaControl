@@ -19,7 +19,7 @@
  **************************************/
 void Pch1PopCallback()
 {
-    if(supply[0]<800 && PowerState[0] == 0 && dc[0] == 1 && millis() - LastPwr1Millis > timer8_ChPwr)
+    if(supply[0] < 800 && PowerState[0] == 0 && dc[0] == 1 && millis() - LastPwr1Millis > timer8_ChPwr)
     {
     sendHC(2,0);  //Power
     delay(400);
@@ -31,7 +31,7 @@ void Pch1PopCallback()
     VolumeStart(0);
     Vol1.setValue(Volval[0]);
     }
-    else if(supply[0]<800 && PowerState[0] == 0 && dc[0] == 1 && millis() - LastPwr1Millis < timer8_ChPwr) 
+    else if(supply[0] < 800 && PowerState[0] == 0 && dc[0] == 1 && millis() - LastPwr1Millis < timer8_ChPwr) 
     {
       msg.setText("Wait for Ch1 ON");
       LastMillis1=millis();
@@ -667,7 +667,8 @@ sendCommand("page 4");
 CPage = 4;
 }
 
-
-
+/*******************************************************
+* End of File 
+*******************************************************/
 
  
