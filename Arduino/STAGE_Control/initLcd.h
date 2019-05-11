@@ -67,7 +67,7 @@ void blankmsg(){
 void waitmsg(){
   supply[0] = analogRead(ibuspins[0][0]);
   supply[1] = analogRead(ibuspins[1][0]);
-  if(supply[0] > 25 || supply[1] > 25) 
+  if(supply[0] > 35 || supply[1] > 35) 
   {
   int msgdelay = 5000;
   msg.setText("Wait 55 seconds");  

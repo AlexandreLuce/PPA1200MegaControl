@@ -129,15 +129,23 @@ void ProcessSupply(){
   for (int i=0; i<2; i=i+1){
    if(supply[i]<800 && PowerState[i] == 1) 
    {
-    msg.setText("Supply Fail");
-    LastMillis1=millis();
     VolumeStop(i);
     sendHC(3,i);  // Out
     delay(100);
     sendHC(2,i);  // Power
     PowerState[i] = 0;
+    if(i == 0) 
+   {          
+    msg.setText("Ch1 Supply Fail");
+    LastMillis1=millis();
+   }
+   else if(i == 1) 
+   {          
+    msg.setText("Ch2 Supply Fail");
+    LastMillis1=millis();
    }
   }
+ }
   if(supply[0] > 800) 
   {
   LastPwr1Millis=millis();
