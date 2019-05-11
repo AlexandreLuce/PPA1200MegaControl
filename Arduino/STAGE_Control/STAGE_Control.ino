@@ -29,7 +29,7 @@ int unsigned timer4_ProcSignal = 1000;
 int unsigned timer5_ProcClip = 10;
 int unsigned timer6_ProcSupply = 250;
 int unsigned timer7_ProcInfo = 500;
-int unsigned timer8_ChPwr = 10000;
+int unsigned timer8_ChPwr = 8000;
 
 /*******************************************************************
  * Default EEPROM Values

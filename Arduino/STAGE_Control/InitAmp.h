@@ -106,26 +106,26 @@ digitalWrite(CS_HC[setCH], LOW);
 void AutoStart(){  
 if(AutoStartState[0] == 1 || AutoStartState[1] == 1 && bridgeState == 0){
   msg.setText("AutoStart");
-  delay(5000);
+  delay(2000);
   if(AutoStartState[0] == 1 && AutoStartState[1] == 1){    
     msg.setText("AutoStart Ch1 Ch2");
-    delay(5000);
+    delay(10000);
     waitmsg();
     delay(500);
     Pch1PopCallback();
-    delay(2000);
+    delay(1500);
     Pch2PopCallback();
   }
   else if(AutoStartState[0] == 1 && AutoStartState[1] == 0){    
     msg.setText("AutoStart Ch1");
-    delay(5000);
+    delay(10000);
     waitmsg();
     delay(500);
     Pch1PopCallback();
   }
   else if(AutoStartState[0] == 0 && AutoStartState[1] == 1){    
     msg.setText("AutoStart Ch2");
-    delay(5000);
+    delay(10000);
     waitmsg();
     delay(500);
     Pch2PopCallback();
