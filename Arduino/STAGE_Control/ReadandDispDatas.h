@@ -36,11 +36,11 @@ void ProcessDC(){
      }   
     }
   }
-  else if(CPage==2 || CPage == 3){
-    DC.Set_font_color_pco(34784);   
+  else if((CPage==2 || CPage == 3) && (millis() - disp_LastMillis1 > disp_timer1_DC)){
+    DC.Set_font_color_pco(34784); 
+    disp_LastMillis1 = millis(); 
   }
-  }
-
+}
 
 /**************************************
  * Signal

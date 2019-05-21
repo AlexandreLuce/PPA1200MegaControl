@@ -476,7 +476,7 @@ void SvolDw1PopCallback()
  **************************************/
 void MvolUp1PopCallback()
 {   
-    if (MaxVol[0] < 80){
+    if (MaxVol[0] < ADMaxVol){
     MaxVol[0] = MaxVol[0] + 1;
     }      
     mVol1.setValue(MaxVol[0]);  
@@ -608,7 +608,7 @@ void SvolDw2PopCallback()
  **************************************/
 void MvolUp2PopCallback()
 {   
-    if (MaxVol[1] < 80){
+    if (MaxVol[1] < ADMaxVol){
     MaxVol[1] = MaxVol[1] + 1;
     }      
     mVol2.setValue(MaxVol[1]);  

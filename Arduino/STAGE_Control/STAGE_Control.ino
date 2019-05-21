@@ -36,7 +36,7 @@ int unsigned timer8_ChPwr = 8000;
  * 
  *******************************************************************/
 
-int unsigned MaxVol[2] = {40,40};
+int unsigned MaxVol[2] = {50,50};
 int unsigned StartVol[2] = {0,0};
 byte unsigned VolumeStep[2] = {1,1};
 byte unsigned VolSyncState = 0;
@@ -52,16 +52,13 @@ int unsigned FanTemp = 30;
  * !!! NOTHING TO CONFIGURE !!! 
  *******************************************************************/
                                          
-//Store AD/HC Bus
+//Store HC Bus
 int HCbusvalue[2][12] ={ 
                        {0,0,0,0,0,0,0,0,0,0,0,0},
                        {0,0,0,0,0,0,0,0,0,0,0,0},
                        };
-int ADbusvalue[2][12] ={
-                       {0,0,0,0,0,0,0,0,0,0,0,0},
-                       {0,0,0,0,0,0,0,0,0,0,0,0},
-                       };
 
+int unsigned ADMaxVol = 80;
 byte bitval;
 int Volval[2] = {0,0};
 byte unsigned FanState = 0;
@@ -96,6 +93,12 @@ long unsigned int LastMillis6 = 0;
 long unsigned int LastMillis7 = 0;
 long unsigned int LastPwr1Millis = 0;
 long unsigned int LastPwr2Millis = 0;
+
+
+//Send to display timer
+int unsigned disp_timer1_DC = 3000;
+long unsigned int disp_LastMillis1 = 0;
+
 
 #include "InitAmp.h"
 
