@@ -28,7 +28,7 @@ int unsigned timer3_ProcDC = 1;
 int unsigned timer4_ProcSignal = 1000;
 int unsigned timer5_ProcClip = 10;
 int unsigned timer6_ProcSupply = 250;
-int unsigned timer7_ProcInfo = 500;
+int unsigned timer7_ProcInfo = 250;
 int unsigned timer8_ChPwr = 8000;
 
 /*******************************************************************
@@ -79,8 +79,10 @@ byte unsigned signl[2] = {0,0};
 byte unsigned clip[2] = {0,0};
 int unsigned rmsV[2] = {0,0};
 int unsigned rmsI[2] = {0,0};
+int unsigned rmsW[2] = {0,0};
 int unsigned peakV[2] = {0,0};
 int unsigned peakI[2] = {0,0};
+int unsigned peakW[2] = {0,0};
 int unsigned Temp[2] = {0,0};
 
 byte unsigned  CPage = 0;
@@ -96,6 +98,10 @@ long unsigned int LastMillis6 = 0;
 long unsigned int LastMillis7 = 0;
 long unsigned int LastPwr1Millis = 0;
 long unsigned int LastPwr2Millis = 0;
+
+//Send to display timer
+int unsigned disp_timer1_DC = 3000;
+long unsigned int disp_LastMillis1 = 0;
 
 #include "InitAmp.h"
 

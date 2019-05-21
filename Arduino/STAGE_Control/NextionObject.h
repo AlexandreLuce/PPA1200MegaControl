@@ -13,9 +13,11 @@ int HomeBR = 3;
 int Settings = 4;
 int CmonSettings = 5;
 int Ch1Settings = 6;
-int Ch2Settings = 7;
-int ScreenSet = 8;
-int InfoPage = 9;
+int LimSetCh1 = 7;
+int Ch2Settings = 8;
+int LimSetCh2 = 9;
+int ScreenSet = 10;
+int InfoPage = 11;
 
 /*******************************************************************
  * Nextion component for page 0 : Init
@@ -38,6 +40,10 @@ NexNumber iVolStep1(Init,15,"iVolStep1");
 NexNumber iVolStep2(Init,16,"iVolStep2");
 NexNumber iAutoStart1(Init,17,"iAutoStart1");
 NexNumber iAutoStart2(Init,18,"iAutoStart2");
+NexNumber iLClip1(Init,19,"iLClip1");
+NexNumber iLClip2(Init,20,"iLClip2");
+NexNumber iPwL1(Init,21,"iPwL1");
+NexNumber iPwL2(Init,22,"iPwL2");
 
 /*******************************************************************
  * Nextion component for page 2 : Home
@@ -143,7 +149,18 @@ NexButton MvolDw1(Ch1Settings, 11, "MvolDw1");
 NexButton save1(Ch1Settings, 7, "save1");
 
 /*******************************************************************
- * Nextion component for page 7: Ch2Settings
+ * Nextion component for page 7 : Ch1 Limiter Settings
+ * 
+ *******************************************************************/
+
+NexDSButton ClipLimCh1(LimSetCh1, 3, "ClipLimCh1");
+NexHotspot SClipLimCh1(LimSetCh1, 8, "SClipLimCh1");
+NexNumber PLimCh1(LimSetCh1, 5,"PLimCh1");
+NexButton PDwCh1(LimSetCh1, 6, "PDwCh1");
+NexButton PUpCh1(LimSetCh1, 7, "PUpCh1");
+
+/*******************************************************************
+ * Nextion component for page 8: Ch2Settings
  * 
  *******************************************************************/
 
@@ -162,32 +179,39 @@ NexButton MvolUp2(Ch2Settings, 13, "MvolUp2");
 NexButton MvolDw2(Ch2Settings, 11, "MvolDw2");  
 NexButton save2(Ch2Settings, 7, "save2");
 
+
 /*******************************************************************
- * Nextion component for page 9: InfoPage
+ * Nextion component for page 9 : Ch2 Limiter Settings
+ * 
+ *******************************************************************/
+
+NexDSButton ClipLimCh2(LimSetCh2, 3, "ClipLimCh2");
+NexHotspot SClipLimCh2(LimSetCh2, 8, "SClipLimCh2");
+NexNumber PLimCh2(LimSetCh2, 5,"PLimCh2");
+NexButton PDwCh2(LimSetCh2, 6, "PDwCh2");
+NexButton PUpCh2(LimSetCh2, 7, "PUpCh2");
+
+
+/*******************************************************************
+ * Nextion component for page 11: InfoPage
  * 
  *******************************************************************/
 
 NexButton backInfo(InfoPage, 1, "backInfo");
 
 NexNumber supplyCh1(InfoPage, 4,"supplyCh1");
-NexNumber supplyCh2(InfoPage, 8,"supplyCh2");
+NexNumber supplyCh2(InfoPage, 7,"supplyCh2");
 
-NexNumber TempCh1(InfoPage, 9,"TempCh1");
-NexNumber TempCh2(InfoPage, 10,"TempCh2");
+NexNumber TempCh1(InfoPage, 8,"TempCh1");
+NexNumber TempCh2(InfoPage, 9,"TempCh2");
 
-NexNumber rmsVCh1(InfoPage, 11,"rmsVCh1");
-NexNumber rmsVCh2(InfoPage, 14,"rmsVCh2");
+NexNumber rmsWCh1(InfoPage, 10,"rmsWCh1");
+NexNumber rmsWCh2(InfoPage, 13,"rmsWCh2");
 
-NexNumber rmsICh1(InfoPage, 15,"rmsICh1");
-NexNumber rmsICh2(InfoPage, 16,"rmsICh2");
+NexNumber peakWCh1(InfoPage, 14,"peakWCh1");
+NexNumber peakWCh2(InfoPage, 26,"peakWCh2");
 
-NexNumber peakICh1(InfoPage, 17,"peakICh1");
-NexNumber peakICh2(InfoPage, 20,"peakICh2");
-
-NexNumber peakVCh1(InfoPage, 21,"peakVCh1");
-NexNumber peakVCh2(InfoPage, 22,"peakVCh2");
-
-NexNumber timeUp(InfoPage, 23,"timeUp");
+NexNumber timeUp(InfoPage, 17,"timeUp");
 
 /*******************************************************************
  * 
@@ -238,6 +262,12 @@ NexTouch *nex_listen_list[] = {
   &VolStepDw2,
   &SAutostart1,
   &SAutostart2,
+  &PUpCh1,
+  &PDwCh1,
+  &SClipLimCh1,
+  &PUpCh2,
+  &PDwCh2,
+  &SClipLimCh2,
   NULL
 };
 

@@ -36,8 +36,9 @@ void ProcessDC(){
      }   
     }
   }
-  else if(CPage==2 || CPage == 3){
-    DC.Set_font_color_pco(34784);   
+  else if((CPage==2 || CPage == 3) && (millis() - disp_LastMillis1 > disp_timer1_DC)){
+    DC.Set_font_color_pco(34784); 
+    disp_LastMillis1 = millis();  
   }
   }
 
@@ -221,13 +222,12 @@ void ProcessPwrRMS(){
    
    rmsI[i] = analogRead(ibuspins[i][6]);
    rmsI[i] = map(rmsI[i], 0, 1023, 0, 250);
+   
+   rmsW[i] = (rmsI[i] * rmsV[i]) / 100;
   }
   if (CPage==9){
-   rmsVCh1.setValue(rmsV[0] - 70);
-   rmsVCh2.setValue(rmsV[1]);
-
-   rmsICh1.setValue(rmsI[0]);
-   rmsICh2.setValue(rmsI[1]);
+   rmsWCh1.setValue(rmsW[0]);
+   rmsWCh2.setValue(rmsW[1]);
   }
 }
 
@@ -243,13 +243,13 @@ void ProcessPwrPeak(){
    
    peakI[i] = analogRead(ibuspins[i][4]);
    peakI[i] = map(peakI[i], 0, 1023, 0, 250);
+   
+   peakW[i] = (peakI[i] * peakV[i]) / 100;
   }
+  
   if (CPage==9){
-   peakVCh1.setValue(peakV[0]);
-   peakVCh2.setValue(peakV[1]);
-
-   peakICh1.setValue(peakI[0]);
-   peakICh2.setValue(peakI[1]);
+   peakWCh1.setValue(peakW[0]);
+   peakWCh2.setValue(peakW[1]);
   }
 }
 

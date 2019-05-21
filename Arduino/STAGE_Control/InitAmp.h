@@ -4,13 +4,6 @@
 * Init Amplifier Fonction
 * 
 * 
-******************************************************** 
- 74HC373 bus 0 Ground Lift Input
- 74HC373 bus 1 Bridge Mode
- 74HC373 bus 2 Power On/Off
- 74HC373 bus 3 Out Relay
- 74HC373 bus 4 Ground Lift Chassis / Fan High
- 74HC373 bus 5 Filter On/Off
 *******************************************************/
 
 #include "VolumeTable.h"

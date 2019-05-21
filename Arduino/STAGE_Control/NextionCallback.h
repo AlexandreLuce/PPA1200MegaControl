@@ -642,8 +642,8 @@ void save2PopCallback()
 
 void goInfoPagePopCallback()
 {   
-sendCommand("page 9");
-CPage = 9;
+sendCommand("page 11");
+CPage = 11;
 ProcessTemp();
 }
 
