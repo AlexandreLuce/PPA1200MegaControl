@@ -55,7 +55,7 @@ void ProcessSignal(){
   //Serial.println(Signal_1);
   //Serial.print("Signal 2 :");
   //Serial.println(Signal_2);
-  if(CPage==2 || CPage == 3){
+  if(CPage==Home || CPage == HomeBR){
     if (signl[0]  > 0) {
       Signal1.setValue(1);     
     }
@@ -63,7 +63,7 @@ void ProcessSignal(){
       Signal1.setValue(0); 
     }
   }
-  if(CPage == 2){ 
+  if(CPage == Home){ 
       if (signl[1] > 0) {
          Signal2.setValue(1);       
       }
@@ -84,8 +84,16 @@ void ProcessClip(){
   //Serial.println(Clip_1);
   //Serial.print("Clip 2 :");
   //Serial.println(Clip_2);
-  if(CPage == 2){
-    if (clip[0] > 100 && clip[0] < 550) {
+  for(int i=0; i<2; i=i+1){
+    if(ClipLState[i] == 1){
+      if (clip[i] < 100 || clip[i] > 550) {
+        Volume(LOW, i); 
+        msg.setText("CLIP Vol Reduce");   
+      }
+    }
+  } 
+  if(CPage == Home){
+    if (clip[0] > 100 || clip[0] < 550) {
       Clip1.Set_font_color_pco(34784);     
     }
     else { 
@@ -94,7 +102,7 @@ void ProcessClip(){
       LastMillis1=millis(); 
     }
     
-    if (clip[1] > 100 && clip[1] < 550) {
+    if (clip[1] > 100 || clip[1] < 550) {
       Clip2.Set_font_color_pco(34784);       
     }
     else { 
@@ -103,8 +111,8 @@ void ProcessClip(){
       LastMillis1=millis();
    }
   }
-  else if(CPage == 3){
-    if (clip[0] > 100 && clip[0] < 550 && clip[1] > 100 && clip[1] < 550) 
+  else if(CPage == HomeBR){
+    if (clip[0] > 100 || clip[0] < 550 || clip[1] > 100 || clip[1] < 550) 
     {
       Clip.Set_font_color_pco(34784);     
     }
@@ -178,7 +186,7 @@ void ProcessSupply(){
       Ch2Pwr.setValue(0);
       }
   }
-  else if(CPage==3){
+  else if(CPage==HomeBR){
     if(supply[0] > 800 && supply[1] > 800) 
       {
       PowerBR.setValue(1);
@@ -188,7 +196,7 @@ void ProcessSupply(){
       PowerBR.setValue(0);
       }
   }
-  else if (CPage==9){
+  else if (CPage==InfoPage){
    int supply1 = map(supply[0], 0, 1023, 0, 120);
    supplyCh1.setValue(supply1);
     
@@ -224,11 +232,14 @@ void ProcessPwrRMS(){
    rmsI[i] = map(rmsI[i], 0, 1023, 0, 250);
    
    rmsW[i] = (rmsI[i] * rmsV[i]) / 100;
-  }
-  if (CPage==9){
-   rmsWCh1.setValue(rmsW[0]);
-   rmsWCh2.setValue(rmsW[1]);
-  }
+
+   if(rmsW[i] > PwLimit[i]){
+        Volume(LOW, i);
+        Vol1.setValue(Volval[0]);
+        Vol2.setValue(Volval[1]);
+        msg.setText("OverPwr Vol Reduce");   
+    }
+  }  
 }
 
 /**************************************
@@ -247,9 +258,11 @@ void ProcessPwrPeak(){
    peakW[i] = (peakI[i] * peakV[i]) / 100;
   }
   
-  if (CPage==9){
+  if (CPage==InfoPage){
    peakWCh1.setValue(peakW[0]);
    peakWCh2.setValue(peakW[1]);
+   rmsWCh1.setValue(rmsW[0]);
+   rmsWCh2.setValue(rmsW[1]);
   }
 }
 
@@ -261,7 +274,7 @@ void ProcessPwrPeak(){
 void ProcessUpTime(){
 long unsigned int Cmillis = millis();
 Cmillis = Cmillis / 60000;
- if (CPage==9){
+ if (CPage==InfoPage){
   timeUp.setValue(Cmillis);
  }
 }

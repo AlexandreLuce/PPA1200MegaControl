@@ -28,8 +28,10 @@ int unsigned timer3_ProcDC = 1;
 int unsigned timer4_ProcSignal = 1000;
 int unsigned timer5_ProcClip = 10;
 int unsigned timer6_ProcSupply = 250;
-int unsigned timer7_ProcInfo = 250;
+int unsigned timer7_ProcInfo = 500;
 int unsigned timer8_ChPwr = 8000;
+int unsigned timer9_ProcPwr = 50;
+
 
 /*******************************************************************
  * Default EEPROM Values
@@ -44,6 +46,8 @@ byte unsigned CliftState = 0;
 byte unsigned LiftState[2] = {0,0};
 byte unsigned FilterState[2] = {0,0};
 byte unsigned AutoStartState[2] = {0,0};
+byte unsigned ClipLState[2] = {0,0};
+int unsigned PwLimit[2] = {600,600};
 byte unsigned bridgeState = 0;
 int unsigned FanTemp = 30;
 
@@ -72,7 +76,7 @@ byte unsigned ADbus = 11;
 byte unsigned ADpin = ADbus;
 long unsigned int Cmillis;
 
-//Store Info Bus
+//Store Info
 int unsigned supply[2] = {0,0};
 byte unsigned dc[2] = {0,0};
 byte unsigned signl[2] = {0,0};
@@ -96,6 +100,7 @@ long unsigned int LastMillis4 = 0;
 long unsigned int LastMillis5 = 0;
 long unsigned int LastMillis6 = 0;
 long unsigned int LastMillis7 = 0;
+long unsigned int LastMillis9 = 0;
 long unsigned int LastPwr1Millis = 0;
 long unsigned int LastPwr2Millis = 0;
 

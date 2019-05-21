@@ -19,16 +19,20 @@ if(millis() - LastMillis2 > timer2_ProcTemp){
 if(millis() - LastMillis3 > timer3_ProcDC){
   ProcessDC();
   LastMillis3 = millis();
+}
 if(millis() - LastMillis6 > timer6_ProcSupply){
   ProcessSupply();
   LastMillis6 = millis();
     }
-  }
+if(millis() - LastMillis9 > timer9_ProcPwr){
+  ProcessPwrRMS();
+  LastMillis9 = millis();
+}
 /*******************************************************
 * Home Page Process
 * 
 *******************************************************/
-if(CPage==2 || CPage==3){
+if(CPage==Home || CPage==HomeBR){
   if(millis() - LastMillis1 > timer1_lcdmsg){
     blankmsg();
     LastMillis1 = millis();
@@ -46,11 +50,10 @@ if(CPage==2 || CPage==3){
 * Info Page Process
 * 
 *******************************************************/
-if(CPage==9){
+if(CPage==InfoPage){
   if(millis() - LastMillis7 > timer7_ProcInfo){
-    ProcessPwrRMS();
-    ProcessPwrPeak();
     ProcessUpTime();
+    ProcessPwrPeak();
     LastMillis7 = millis();   
   } 
  }  

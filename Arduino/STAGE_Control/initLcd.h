@@ -26,6 +26,11 @@ iVolStep1.setValue(VolumeStep[0]);
 iVolStep2.setValue(VolumeStep[1]);
 iAutoStart1.setValue(AutoStartState[0]);
 iAutoStart2.setValue(AutoStartState[1]);
+iLClip1.setValue(ClipLState[0]);
+iLClip2.setValue(ClipLState[1]);
+iPwL1.setValue(PwLimit[0]);
+iPwL2.setValue(PwLimit[1]);
+
 delay (100);
 sendCommand("page 1");
 delay (500);

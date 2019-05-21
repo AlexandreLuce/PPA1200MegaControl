@@ -23,6 +23,10 @@ FilterState[1] = EEPROM.read(9);
 bridgeState = EEPROM.read(20);
 AutoStartState[0] = EEPROM.read(22);
 AutoStartState[1] = EEPROM.read(24);
+ClipLState[0] = EEPROM.read(26);
+PwLimit[0] =  EEPROM.read(28); 
+ClipLState[1] = EEPROM.read(30);
+PwLimit[1] =  EEPROM.read(32);
 }
 
 /*******************************************************

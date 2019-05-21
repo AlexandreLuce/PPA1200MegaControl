@@ -489,6 +489,43 @@ void MvolDw1PopCallback()
     }      
     mVol1.setValue(MaxVol[0]);  
 }
+/**************************************
+ * Clip Limiter activation
+ **************************************/
+void SClipLimCh1PopCallback()
+{
+    if(ClipLState[0] == 0) 
+    {
+    ClipLimCh1.setValue(1);
+    ClipLimCh1.setText("Clip Limiter Active");
+    ClipLState[0] = 1;
+    }
+    else if(ClipLState[0] == 1) 
+    {
+    ClipLimCh1.setValue(0);
+    ClipLimCh1.setText("Clip Limiter Inactive");
+    ClipLState[0] = 0;
+    }
+}
+
+/**************************************
+ * Power Limiter
+ **************************************/
+void PUpCh1PopCallback()
+{   
+    if (PwLimit[0] < 905){
+    PwLimit[0] = PwLimit[0] + 5;
+    }      
+    PLimCh1.setValue(PwLimit[0]);  
+}
+
+void PDwCh1PopCallback()
+{   
+    if (PwLimit[0] > 0){
+    PwLimit[0] = PwLimit[0] - 5;
+    }      
+    PLimCh1.setValue(PwLimit[0]);  
+}
 
 /**************************************
  * Save
@@ -500,8 +537,10 @@ void save1PopCallback()
   EEPROM.update(7, MaxVol[0]);
   EEPROM.update(6, StartVol[0]);
   EEPROM.update(18, VolumeStep[0]);
-  
+  EEPROM.update(26, ClipLState[0]);
+  EEPROM.update(28, PwLimit[0]);  
 }
+
 /*************************************
  * 
  * Channel 2 Settings
@@ -623,6 +662,44 @@ void MvolDw2PopCallback()
 }
 
 /**************************************
+ * Clip Limiter activation
+ **************************************/
+void SClipLimCh2PopCallback()
+{
+    if(ClipLState[1] == 0) 
+    {
+    ClipLimCh2.setValue(1);
+    ClipLimCh2.setText("Clip Limiter Active");
+    ClipLState[1] = 1;
+    }
+    else if(ClipLState[1] == 1) 
+    {
+    ClipLimCh2.setValue(0);
+    ClipLimCh2.setText("Clip Limiter Inactive");
+    ClipLState[1] = 0;
+    }
+}
+
+/**************************************
+ * Power Limiter
+ **************************************/
+void PUpCh2PopCallback()
+{   
+    if (PwLimit[1] < 905){
+    PwLimit[1] = PwLimit[1] + 5;
+    }      
+    PLimCh2.setValue(PwLimit[1]);  
+}
+
+void PDwCh2PopCallback()
+{   
+    if (PwLimit[1] > 0){
+    PwLimit[1] = PwLimit[1] - 5;
+    }      
+    PLimCh2.setValue(PwLimit[1]);  
+}
+
+/**************************************
  * Save
  **************************************/
 void save2PopCallback()
@@ -632,6 +709,8 @@ void save2PopCallback()
   EEPROM.update(11, MaxVol[1]);
   EEPROM.update(15, StartVol[1]);
   EEPROM.update(16, VolumeStep[1]);
+  EEPROM.update(30, ClipLState[1]);
+  EEPROM.update(32, PwLimit[1]); 
 }
 
 /*************************************
