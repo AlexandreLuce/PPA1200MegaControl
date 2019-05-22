@@ -24,13 +24,13 @@ const byte ibuspins[2][9] = {
 
 int unsigned timer1_lcdmsg = 10000;
 int unsigned timer2_ProcTemp = 30000;
-int unsigned timer3_ProcDC = 1;
+int unsigned timer3_ProcDC = 2;
 int unsigned timer4_ProcSignal = 1000;
 int unsigned timer5_ProcClip = 10;
 int unsigned timer6_ProcSupply = 250;
 int unsigned timer7_ProcInfo = 500;
 int unsigned timer8_ChPwr = 8000;
-int unsigned timer9_ProcPwr = 50;
+int unsigned timer9_ProcPwr = 100;
 
 
 /*******************************************************************
@@ -46,8 +46,9 @@ byte unsigned CliftState = 0;
 byte unsigned LiftState[2] = {0,0};
 byte unsigned FilterState[2] = {0,0};
 byte unsigned AutoStartState[2] = {0,0};
-byte unsigned ClipLState[2] = {0,0};
-int unsigned PwLimit[2] = {600,600};
+byte unsigned ClipLState[2] = {1,1};
+byte unsigned PwLimitState[2] = {300,300};
+int unsigned PwLimit[2] = {300,300};
 byte unsigned bridgeState = 0;
 int unsigned FanTemp = 30;
 
@@ -88,7 +89,7 @@ int unsigned peakV[2] = {0,0};
 int unsigned peakI[2] = {0,0};
 int unsigned peakW[2] = {0,0};
 int unsigned Temp[2] = {0,0};
-
+int unsigned VolWanted[2] = {0,0};
 byte unsigned  CPage = 0;
 
 char buffer[100] = {0};

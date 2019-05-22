@@ -57,9 +57,11 @@ void Pch1PopCallback()
 {   
     Volume(HIGH,0);      
     Vol1.setValue(Volval[0]);
+    VolWanted[0] = Volval[0];
     if(VolSyncState == 1){
       Volume(HIGH,1);      
       Vol2.setValue(Volval[1]);
+      VolWanted[1] = Volval[1];
       }    
 }
 
@@ -70,9 +72,11 @@ void Vmin1PopCallback(void *ptr)
 {
     Volume(LOW,0);    
     Vol1.setValue(Volval[0]);
+    VolWanted[0] = Volval[0];
     if(VolSyncState == 1){
       Volume(LOW,1);      
       Vol2.setValue(Volval[1]);
+      VolWanted[1] = Volval[1];
       }   
 }
 
@@ -511,6 +515,23 @@ void SClipLimCh1PopCallback()
 /**************************************
  * Power Limiter
  **************************************/
+
+void SPwLim1PopCallback()
+{
+    if(PwLimitState[0] == 0) 
+    {
+    PwLim1.setValue(1);
+    PwLim1.setText("Power Limiter Active");
+    PwLimitState[0] = 1;
+    }
+    else if(PwLimitState[0] == 1) 
+    {
+    PwLim1.setValue(0);
+    PwLim1.setText("Power Limiter Inactive");
+    PwLimitState[0] = 0;
+    }
+}
+
 void PUpCh1PopCallback()
 {   
     if (PwLimit[0] < 905){
@@ -538,7 +559,9 @@ void save1PopCallback()
   EEPROM.update(6, StartVol[0]);
   EEPROM.update(18, VolumeStep[0]);
   EEPROM.update(26, ClipLState[0]);
-  EEPROM.update(28, PwLimit[0]);  
+  EEPROM.update(28, PwLimit[0]);
+  EEPROM.update(34, PwLimitState[0]);
+   
 }
 
 /*************************************
@@ -683,6 +706,23 @@ void SClipLimCh2PopCallback()
 /**************************************
  * Power Limiter
  **************************************/
+
+void SPwLim2PopCallback()
+{
+    if(PwLimitState[1] == 0) 
+    {
+    PwLim2.setValue(1);
+    PwLim2.setText("Power Limiter Active");
+    PwLimitState[1] = 1;
+    }
+    else if(PwLimitState[1] == 1) 
+    {
+    PwLim2.setValue(0);
+    PwLim2.setText("Power Limiter Inactive");
+    PwLimitState[1] = 0;
+    }
+}
+
 void PUpCh2PopCallback()
 {   
     if (PwLimit[1] < 905){
@@ -710,7 +750,8 @@ void save2PopCallback()
   EEPROM.update(15, StartVol[1]);
   EEPROM.update(16, VolumeStep[1]);
   EEPROM.update(30, ClipLState[1]);
-  EEPROM.update(32, PwLimit[1]); 
+  EEPROM.update(32, PwLimit[1]);
+  EEPROM.update(36, PwLimitState[1]); 
 }
 
 /*************************************

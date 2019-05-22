@@ -44,6 +44,8 @@ NexNumber iLClip1(Init,19,"iLClip1");
 NexNumber iLClip2(Init,20,"iLClip2");
 NexNumber iPwL1(Init,21,"iPwL1");
 NexNumber iPwL2(Init,22,"iPwL2");
+NexNumber iPwL1State(Init,23,"iPwL1State");
+NexNumber iPwL2State(Init,24,"iPwL2State");
 
 /*******************************************************************
  * Nextion component for page 2 : Home
@@ -155,6 +157,8 @@ NexButton save1(Ch1Settings, 7, "save1");
 
 NexDSButton ClipLimCh1(LimSetCh1, 3, "ClipLimCh1");
 NexHotspot SClipLimCh1(LimSetCh1, 8, "SClipLimCh1");
+NexDSButton PwLim1(LimSetCh1, 9, "PwLim1");
+NexHotspot SPwLim1(LimSetCh1, 10, "SPwLim1");
 NexNumber PLimCh1(LimSetCh1, 5,"PLimCh1");
 NexButton PDwCh1(LimSetCh1, 6, "PDwCh1");
 NexButton PUpCh1(LimSetCh1, 7, "PUpCh1");
@@ -187,6 +191,8 @@ NexButton save2(Ch2Settings, 7, "save2");
 
 NexDSButton ClipLimCh2(LimSetCh2, 3, "ClipLimCh2");
 NexHotspot SClipLimCh2(LimSetCh2, 8, "SClipLimCh2");
+NexDSButton PwLim2(LimSetCh2, 9, "PwLim2");
+NexHotspot SPwLim2(LimSetCh2, 10, "SPwLim2");
 NexNumber PLimCh2(LimSetCh2, 5,"PLimCh2");
 NexButton PDwCh2(LimSetCh2, 6, "PDwCh2");
 NexButton PUpCh2(LimSetCh2, 7, "PUpCh2");
@@ -265,9 +271,11 @@ NexTouch *nex_listen_list[] = {
   &PUpCh1,
   &PDwCh1,
   &SClipLimCh1,
+  &SPwLim1,
   &PUpCh2,
   &PDwCh2,
   &SClipLimCh2,
+  &SPwLim2,
   NULL
 };
 

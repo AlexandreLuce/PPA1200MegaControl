@@ -225,21 +225,27 @@ void ProcessSupply(){
 
 void ProcessPwrRMS(){
   for (int i=0; i<2; i=i+1){
-   rmsV[i] = analogRead(ibuspins[i][5]);
-   rmsV[i] = map(rmsV[i], 0, 1023, 0, 1000);
+    rmsV[i] = analogRead(ibuspins[i][5]);
+    rmsV[i] = map(rmsV[i], 0, 1023, 0, 1000);
    
-   rmsI[i] = analogRead(ibuspins[i][6]);
-   rmsI[i] = map(rmsI[i], 0, 1023, 0, 250);
+    rmsI[i] = analogRead(ibuspins[i][6]);
+    rmsI[i] = map(rmsI[i], 0, 1023, 0, 250);
    
-   rmsW[i] = (rmsI[i] * rmsV[i]) / 100;
-
-   if(rmsW[i] > PwLimit[i]){
+    rmsW[i] = (rmsI[i] * rmsV[i]) / 100;
+  
+    if(PwLimitState[i] == 1){
+      if(rmsW[i] > PwLimit[i]){
         Volume(LOW, i);
         Vol1.setValue(Volval[0]);
         Vol2.setValue(Volval[1]);
         msg.setText("OverPwr Vol Reduce");   
-    }
-  }  
+      }
+      else if(rmsW[i] < PwLimit[i] && Volval[i] < VolWanted[i]){
+        Volume(HIGH, i);
+        Vol1.setValue(Volval[0]);
+        Vol2.setValue(Volval[1]);
+    }  
+  }
 }
 
 /**************************************

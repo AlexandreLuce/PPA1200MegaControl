@@ -30,8 +30,8 @@ iLClip1.setValue(ClipLState[0]);
 iLClip2.setValue(ClipLState[1]);
 iPwL1.setValue(PwLimit[0]);
 iPwL2.setValue(PwLimit[1]);
-
-delay (100);
+iPwL1State.setValue(PwLimitState[0]);
+iPwL2State.setValue(PwLimitState[1]);
 sendCommand("page 1");
 delay (500);
 ProcessDC();
