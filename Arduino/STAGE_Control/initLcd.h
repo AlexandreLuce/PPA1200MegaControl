@@ -48,9 +48,6 @@ ProcessSupply();
     sendCommand("page 3");
     CPage = 3;
   }
-ProcessTemp();
-Temp1.setValue(Temp[0]);
-Temp2.setValue(Temp[1]);
 }
 
 /*******************************************************
@@ -74,35 +71,19 @@ void waitmsg(){
   supply[1] = analogRead(ibuspins[1][0]);
   if(supply[0] > 35 || supply[1] > 35) 
   {
-  int msgdelay = 5000;
-  msg.setText("Wait 55 seconds");  
+  int msgdelay = 10000;
+  msg.setText("Wait 60 seconds");  
   delay(msgdelay);
-  msg.setText("Wait 50 seconds");
+  msg.setText("Wait 50 seconds");  
   delay(msgdelay);
-  msg.setText("Wait 45 seconds");
-  delay(msgdelay);
-  msg.setText("Wait 40 seconds");
-  delay(msgdelay);
-  msg.setText("Wait 35 seconds");
+  msg.setText("Wait 40 seconds");  
   delay(msgdelay);
   msg.setText("Wait 30 seconds");
-  delay(msgdelay);
-  msg.setText("Wait 25 seconds");
-  delay(msgdelay);
+  delay(msgdelay); 
   msg.setText("Wait 20 seconds");
   delay(msgdelay);
-  msg.setText("Wait 15 seconds");
-  delay(msgdelay);
   msg.setText("Wait 10 seconds");
-  delay(1000);
-  msg.setText("Wait 9 seconds");
-  delay(1000);
-  msg.setText("Wait 8 seconds");
-  delay(1000);
-  msg.setText("Wait 7 seconds");
-  delay(1000);
-  msg.setText("Wait 6 seconds");
-  delay(1000);
+  delay(5000);
   msg.setText("Wait 5 seconds");
   delay(1000);
   msg.setText("Wait 4 seconds");

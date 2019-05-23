@@ -25,13 +25,13 @@ const byte ibuspins[2][9] = {
 int unsigned timer1_lcdmsg = 10000;
 int unsigned timer2_ProcTemp = 30000;
 int unsigned timer3_ProcDC = 2;
-int unsigned timer4_ProcSignal = 1000;
-int unsigned timer5_ProcClip = 10;
+int unsigned timer4_ProcSignal = 1500;
+int unsigned timer5_ProcClip = 30;
 int unsigned timer6_ProcSupply = 250;
 int unsigned timer7_ProcInfo = 500;
 int unsigned timer8_ChPwr = 8000;
-int unsigned timer9_ProcPwr = 50;
-int unsigned disp_timer1_DC = 3000;
+int unsigned timer9_ProcPwr = 60;
+int unsigned disp_timer1_DC = 2000;
 
 
 /*******************************************************************
@@ -134,8 +134,10 @@ digitalWrite(CS_HC[0], LOW);
 digitalWrite(CS_HC[1], LOW);
 digitalWrite(CS_AD[0], HIGH);    
 digitalWrite(CS_AD[1], HIGH);
+sendHC(4,1);
+FanState = 1;
 //Init Serial 1
-//Serial.begin(9600);
+//Serial.begin(115200);
 //Init EEPROM
 initEEprom();
 //Init Bus
@@ -156,7 +158,6 @@ AutoStart();
 void loop(){
   
 nexLoop(nex_listen_list);
-
 ProcessDatas();
               
 }

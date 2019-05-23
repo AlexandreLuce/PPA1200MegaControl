@@ -17,6 +17,7 @@
 #include "initEEprom.h"
 #include "initLcd.h"
 #include "ProcessDatas.h"
+#include "SerialProcess.h"
 
 void InitStates(){
       
@@ -127,6 +128,9 @@ if(AutoStartState[0] == 1 || AutoStartState[1] == 1 && bridgeState == 0){
 else if(AutoStartState[0] == 0 && AutoStartState[1] == 0){
   waitmsg();  
 }
+ProcessTemp();
+Temp1.setValue(Temp[0]);
+Temp2.setValue(Temp[1]);
 msg.setText("Init OK");
 LastMillis1=millis(); 
 }

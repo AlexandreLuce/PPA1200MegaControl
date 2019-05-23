@@ -81,26 +81,30 @@ void ProcessClip(){
   clip[0] = analogRead(ibuspins[0][3]);
   clip[1] = analogRead(ibuspins[1][3]);
   //Serial.print("Clip 1 :");
-  //Serial.println(Clip_1);
+  //Serial.println(clip[0]);
   //Serial.print("Clip 2 :");
-  //Serial.println(Clip_2);
+  //Serial.println(clip[1]);
   for(int i=0; i<2; i=i+1){
-    if(ClipLState[i] == 1 && PowerState[i] == 1){
-      if (clip[i] < 100 || clip[i] > 550) {        
+    if(ClipLState[i] == 1 && PowerState[i] == 1 && Volval[i] > 0 && clip[i] >= 300){    
         Volume(LOW, i);
           if(i == 0){          
             Vol1.setValue(Volval[0]);
-            msg.setText("CLIP Ch1 Vol Down");
-          }
-          else if(i == 1){          
+              if(CPage == 2){
+              msg.setText("CLIP 1 Vol Dw");
+              Clip1.Set_font_color_pco(63521);
+              }
+            }
+            else if(i == 1){          
             Vol2.setValue(Volval[1]);
-            msg.setText("CLIP Ch2 Vol Down");
-          }  
+             if(CPage == 2){
+             msg.setText("CLIP 2 Vol Dw");
+             Clip2.Set_font_color_pco(63521); 
+             }
+           }  
       }
     }
-  } 
   if(CPage == 2){
-    if (clip[0] > 100 || clip[0] < 550) {
+    if (clip[0] < 300) {
       Clip1.Set_font_color_pco(34784);     
     }
     else { 
@@ -109,7 +113,7 @@ void ProcessClip(){
       LastMillis1=millis(); 
     }
     
-    if (clip[1] > 100 || clip[1] < 550) {
+    if (clip[1] < 300) {
       Clip2.Set_font_color_pco(34784);       
     }
     else { 
@@ -119,7 +123,7 @@ void ProcessClip(){
    }
   }
   else if(CPage == 3){
-    if (clip[0] > 100 || clip[0] < 550 || clip[1] > 100 || clip[1] < 550) 
+    if (clip[0] < 600 || clip[1] < 600) 
     {
       Clip.Set_font_color_pco(34784);     
     }
@@ -232,26 +236,20 @@ void ProcessSupply(){
 
 void ProcessPwr(){
   for (int i=0; i<2; i=i+1){    
-   rmsV[i] = analogRead(ibuspins[i][5]);
-   rmsV[i] = map(rmsV[i], 0, 1023, 0, 1000);
-   
-   rmsI[i] = analogRead(ibuspins[i][6]);
-   rmsI[i] = map(rmsI[i], 0, 1023, 0, 250);
+   rmsV[i] = map(analogRead(ibuspins[i][5]), 0, 1023, 0, 1000);
+   rmsI[i] = map(analogRead(ibuspins[i][6]), 0, 1023, 0, 250);
    
    rmsW[i] = (rmsI[i] * rmsV[i]) / 100; 
 
-   peakV[i] = analogRead(ibuspins[i][7]);
-   peakV[i] = map(peakV[i], 0, 1023, 0, 1000);
-   
-   peakI[i] = analogRead(ibuspins[i][4]);
-   peakI[i] = map(peakI[i], 0, 1023, 0, 250);
+   peakV[i] = map(analogRead(ibuspins[i][7]), 0, 1023, 0, 1000);
+   peakI[i] = map(analogRead(ibuspins[i][4]), 0, 1023, 0, 250);
    
    peakW[i] = (peakI[i] * peakV[i]) / 100;
 
-   int unsigned MaxPower = PwLimit[i] * 2;
+   int unsigned MaxPower = PwLimit[i] * 1.5;
        
       if(PwLimitState[i] == 1 && PowerState[i] == 1){
-        if(rmsW[i] > PwLimit[i]|| peakW[i] > MaxPower){ 
+        if(rmsW[i] > PwLimit[i] || peakW[i] > MaxPower){ 
          UnderPwr[i] = 0; 
          OverPwr[i] = OverPwr[i] + 1;
         }
