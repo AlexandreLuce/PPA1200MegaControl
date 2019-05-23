@@ -25,7 +25,7 @@ void ProcessTemp(){
    FanState = 0; 
    msg.setText("Fan OFF"); 
   }
- if(CPage == Home || CPage == HomeBR || CPage == InfoPage){ 
+ if(CPage == 2 || CPage == 3 || CPage == 11){ 
   Temp1.setValue(Temp[0]);
   Temp2.setValue(Temp[1]);
   if(Temp[0] >= FanTemp){

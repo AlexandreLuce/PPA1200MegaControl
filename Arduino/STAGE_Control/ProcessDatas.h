@@ -32,7 +32,7 @@ if(millis() - LastMillis9 > timer9_ProcPwr){
 * Home Page Process
 * 
 *******************************************************/
-if(CPage==Home || CPage==HomeBR){
+if(CPage==2 || CPage==3){
   if(millis() - LastMillis1 > timer1_lcdmsg){
     blankmsg();
     LastMillis1 = millis();
@@ -50,7 +50,7 @@ if(CPage==Home || CPage==HomeBR){
 * Info Page Process
 * 
 *******************************************************/
-if(CPage==InfoPage){
+if(CPage==11){
   if(millis() - LastMillis7 > timer7_ProcInfo){
     ProcessUpTime();
     ProcessPwrPeak();

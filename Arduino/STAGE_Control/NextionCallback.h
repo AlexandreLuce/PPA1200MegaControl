@@ -124,9 +124,11 @@ void Pch2PopCallback()
 void Vplus2PopCallback()
 {
     Volume(HIGH,1);      
+    VolWanted[1] = Volval[1];
     Vol2.setValue(Volval[1]);  
     if(VolSyncState == 1){
-      Volume(HIGH,0);      
+      Volume(HIGH,0);
+      VolWanted[1] = Volval[1];      
       Vol1.setValue(Volval[0]);
       }   
 }
@@ -137,9 +139,11 @@ void Vplus2PopCallback()
 void Vmin2PopCallback()
 {
     Volume(LOW,1);    
+    VolWanted[1] = Volval[1];
     Vol2.setValue(Volval[1]);
     if(VolSyncState == 1){
-      Volume(LOW,0);      
+      Volume(LOW,0);
+      VolWanted[1] = Volval[1];      
       Vol1.setValue(Volval[0]);
       }     
 }

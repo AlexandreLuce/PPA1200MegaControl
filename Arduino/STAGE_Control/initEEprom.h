@@ -27,8 +27,8 @@ ClipLState[0] = EEPROM.read(26);
 PwLimit[0] =  EEPROM.read(28); 
 ClipLState[1] = EEPROM.read(30);
 PwLimit[1] =  EEPROM.read(32);
-//PwLimitState[0] = EEPROM.read(34);
-//PwLimitState[1] = EEPROM.read(36);
+PwLimitState[0] = EEPROM.read(34);
+PwLimitState[1] = EEPROM.read(36);
 }
 
 /*******************************************************

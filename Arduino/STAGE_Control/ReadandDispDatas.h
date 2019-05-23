@@ -55,7 +55,7 @@ void ProcessSignal(){
   //Serial.println(Signal_1);
   //Serial.print("Signal 2 :");
   //Serial.println(Signal_2);
-  if(CPage==Home || CPage == HomeBR){
+  if(CPage==2 || CPage == 3){
     if (signl[0]  > 0) {
       Signal1.setValue(1);     
     }
@@ -63,7 +63,7 @@ void ProcessSignal(){
       Signal1.setValue(0); 
     }
   }
-  if(CPage == Home){ 
+  if(CPage == 2){ 
       if (signl[1] > 0) {
          Signal2.setValue(1);       
       }
@@ -85,14 +85,21 @@ void ProcessClip(){
   //Serial.print("Clip 2 :");
   //Serial.println(Clip_2);
   for(int i=0; i<2; i=i+1){
-    if(ClipLState[i] == 1){
-      if (clip[i] < 100 || clip[i] > 550) {
-        Volume(LOW, i); 
-        msg.setText("CLIP Vol Reduce");   
+    if(ClipLState[i] == 1 && PowerState[i] == 1){
+      if (clip[i] < 100 || clip[i] > 550) {        
+        Volume(LOW, i);
+          if(i == 0){          
+            Vol1.setValue(Volval[0]);
+            msg.setText("CLIP Ch1 Vol Down");
+          }
+          else if(i == 1){          
+            Vol2.setValue(Volval[1]);
+            msg.setText("CLIP Ch2 Vol Down");
+          }  
       }
     }
   } 
-  if(CPage == Home){
+  if(CPage == 2){
     if (clip[0] > 100 || clip[0] < 550) {
       Clip1.Set_font_color_pco(34784);     
     }
@@ -111,7 +118,7 @@ void ProcessClip(){
       LastMillis1=millis();
    }
   }
-  else if(CPage == HomeBR){
+  else if(CPage == 3){
     if (clip[0] > 100 || clip[0] < 550 || clip[1] > 100 || clip[1] < 550) 
     {
       Clip.Set_font_color_pco(34784);     
@@ -186,7 +193,7 @@ void ProcessSupply(){
       Ch2Pwr.setValue(0);
       }
   }
-  else if(CPage==HomeBR){
+  else if(CPage==3){
     if(supply[0] > 800 && supply[1] > 800) 
       {
       PowerBR.setValue(1);
@@ -196,7 +203,7 @@ void ProcessSupply(){
       PowerBR.setValue(0);
       }
   }
-  else if (CPage==InfoPage){
+  else if (CPage==11){
    int supply1 = map(supply[0], 0, 1023, 0, 120);
    supplyCh1.setValue(supply1);
     
@@ -231,23 +238,44 @@ void ProcessPwrRMS(){
     rmsI[i] = analogRead(ibuspins[i][6]);
     rmsI[i] = map(rmsI[i], 0, 1023, 0, 250);
    
-    rmsW[i] = (rmsI[i] * rmsV[i]) / 100;
-  
-    if(PwLimitState[i] == 1){
-      if(rmsW[i] > PwLimit[i]){
-        Volume(LOW, i);
-        Vol1.setValue(Volval[0]);
-        Vol2.setValue(Volval[1]);
-        msg.setText("OverPwr Vol Reduce");   
+    rmsW[i] = (rmsI[i] * rmsV[i]) / 100;  
+    
+      if(PwLimitState[i] == 1 && PowerState[i] == 1){
+        if(rmsW[i] > PwLimit[i]){ 
+         UnderPwr[i] = 0; 
+         OverPwr[i] = OverPwr[i] + 1;
+        }
+        else if(rmsW[i] < PwLimit[i] && Volval[i] < VolWanted[i]){ 
+           OverPwr[i] = 0;
+           UnderPwr[i] = UnderPwr[i] + 1;
+        }           
+        if(OverPwr[i] > 3){
+          Volume(LOW, i);
+          OverPwr[i] = 0;
+            if(i == 0){          
+              Vol1.setValue(Volval[0]);
+              msg.setText("OverPwr Ch1 Vol Down");
+            }
+            else if(i == 1){          
+              Vol2.setValue(Volval[1]);
+              msg.setText("OverPwr Ch2 Vol Down");
+            }          
+        }
+        else if(UnderPwr[i] > 10){
+          Volume(HIGH, i);
+          UnderPwr[i] = 0;
+          if(i == 0){          
+            Vol1.setValue(Volval[0]);
+            msg.setText("UnderPwr Ch1 Vol Up");
+          }
+          else if(i == 1){          
+            Vol2.setValue(Volval[1]);
+            msg.setText("UnderPwr Ch2 Vol Up");
+          }   
+        }  
       }
-      else if(rmsW[i] < PwLimit[i] && Volval[i] < VolWanted[i]){
-        Volume(HIGH, i);
-        Vol1.setValue(Volval[0]);
-        Vol2.setValue(Volval[1]);
-    }  
-  }
-}
-}
+    }
+ }
 
 /**************************************
  * Peak Power
@@ -265,7 +293,7 @@ void ProcessPwrPeak(){
    peakW[i] = (peakI[i] * peakV[i]) / 100;
   }
   
-  if (CPage==InfoPage){
+  if (CPage==11){
    peakWCh1.setValue(peakW[0]);
    peakWCh2.setValue(peakW[1]);
    rmsWCh1.setValue(rmsW[0]);
@@ -281,7 +309,7 @@ void ProcessPwrPeak(){
 void ProcessUpTime(){
 long unsigned int Cmillis = millis();
 Cmillis = Cmillis / 60000;
- if (CPage==InfoPage){
+ if (CPage==11){
   timeUp.setValue(Cmillis);
  }
 }
