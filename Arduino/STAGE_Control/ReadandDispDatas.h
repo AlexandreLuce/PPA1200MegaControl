@@ -230,47 +230,57 @@ void ProcessSupply(){
  * 
  **************************************/
 
-void ProcessPwrRMS(){
-  for (int i=0; i<2; i=i+1){
-    rmsV[i] = analogRead(ibuspins[i][5]);
-    rmsV[i] = map(rmsV[i], 0, 1023, 0, 1000);
+void ProcessPwr(){
+  for (int i=0; i<2; i=i+1){    
+   rmsV[i] = analogRead(ibuspins[i][5]);
+   rmsV[i] = map(rmsV[i], 0, 1023, 0, 1000);
    
-    rmsI[i] = analogRead(ibuspins[i][6]);
-    rmsI[i] = map(rmsI[i], 0, 1023, 0, 250);
+   rmsI[i] = analogRead(ibuspins[i][6]);
+   rmsI[i] = map(rmsI[i], 0, 1023, 0, 250);
    
-    rmsW[i] = (rmsI[i] * rmsV[i]) / 100;  
-    
+   rmsW[i] = (rmsI[i] * rmsV[i]) / 100; 
+
+   peakV[i] = analogRead(ibuspins[i][7]);
+   peakV[i] = map(peakV[i], 0, 1023, 0, 1000);
+   
+   peakI[i] = analogRead(ibuspins[i][4]);
+   peakI[i] = map(peakI[i], 0, 1023, 0, 250);
+   
+   peakW[i] = (peakI[i] * peakV[i]) / 100;
+
+   int unsigned MaxPower = PwLimit[i] * 2;
+       
       if(PwLimitState[i] == 1 && PowerState[i] == 1){
-        if(rmsW[i] > PwLimit[i]){ 
+        if(rmsW[i] > PwLimit[i]|| peakW[i] > MaxPower){ 
          UnderPwr[i] = 0; 
          OverPwr[i] = OverPwr[i] + 1;
         }
-        else if(rmsW[i] < PwLimit[i] && Volval[i] < VolWanted[i]){ 
+        else if(peakW[i] < MaxPower && rmsW[i] < PwLimit[i] && Volval[i] < VolWanted[i]){ 
            OverPwr[i] = 0;
            UnderPwr[i] = UnderPwr[i] + 1;
         }           
-        if(OverPwr[i] > 3){
+        if(OverPwr[i] > 2){
           Volume(LOW, i);
           OverPwr[i] = 0;
             if(i == 0){          
               Vol1.setValue(Volval[0]);
-              msg.setText("OverPwr Ch1 Vol Down");
+              msg.setText("OverPwr 1 Vol Dw");
             }
             else if(i == 1){          
               Vol2.setValue(Volval[1]);
-              msg.setText("OverPwr Ch2 Vol Down");
+              msg.setText("OverPwr 2 Vol Dw");
             }          
         }
-        else if(UnderPwr[i] > 10){
+        else if(UnderPwr[i] > 20){
           Volume(HIGH, i);
           UnderPwr[i] = 0;
           if(i == 0){          
             Vol1.setValue(Volval[0]);
-            msg.setText("UnderPwr Ch1 Vol Up");
+            msg.setText("UnderPwr 1 Vol Up");
           }
           else if(i == 1){          
             Vol2.setValue(Volval[1]);
-            msg.setText("UnderPwr Ch2 Vol Up");
+            msg.setText("UnderPwr 2 Vol Up");
           }   
         }  
       }
@@ -282,23 +292,11 @@ void ProcessPwrRMS(){
  * 
  **************************************/
 
-void ProcessPwrPeak(){
-  for (int i=0; i<2; i=i+1){
-   peakV[i] = analogRead(ibuspins[i][7]);
-   peakV[i] = map(peakV[i], 0, 1023, 0, 1000);
-   
-   peakI[i] = analogRead(ibuspins[i][4]);
-   peakI[i] = map(peakI[i], 0, 1023, 0, 250);
-   
-   peakW[i] = (peakI[i] * peakV[i]) / 100;
-  }
-  
-  if (CPage==11){
+void DisplayPwr(){  
    peakWCh1.setValue(peakW[0]);
    peakWCh2.setValue(peakW[1]);
    rmsWCh1.setValue(rmsW[0]);
    rmsWCh2.setValue(rmsW[1]);
-  }
 }
 
 /**************************************

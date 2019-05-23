@@ -25,7 +25,7 @@ if(millis() - LastMillis6 > timer6_ProcSupply){
   LastMillis6 = millis();
     }
 if(millis() - LastMillis9 > timer9_ProcPwr){
-  ProcessPwrRMS();
+  ProcessPwr();
   LastMillis9 = millis();
 }
 /*******************************************************
@@ -53,7 +53,7 @@ if(CPage==2 || CPage==3){
 if(CPage==11){
   if(millis() - LastMillis7 > timer7_ProcInfo){
     ProcessUpTime();
-    ProcessPwrPeak();
+    DisplayPwr();
     LastMillis7 = millis();   
   } 
  }  

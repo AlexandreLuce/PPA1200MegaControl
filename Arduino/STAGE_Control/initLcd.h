@@ -37,8 +37,8 @@ delay (500);
 ProcessDC();
 ProcessSignal();
 ProcessClip();
-ProcessPwrRMS();
-ProcessPwrPeak();
+ProcessPwr();
+DisplayPwr();
 ProcessSupply();
   if (bridgeState == 0){
     sendCommand("page 2");

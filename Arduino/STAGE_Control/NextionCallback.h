@@ -128,7 +128,7 @@ void Vplus2PopCallback()
     Vol2.setValue(Volval[1]);  
     if(VolSyncState == 1){
       Volume(HIGH,0);
-      VolWanted[1] = Volval[1];      
+      VolWanted[0] = Volval[0];      
       Vol1.setValue(Volval[0]);
       }   
 }
@@ -143,7 +143,7 @@ void Vmin2PopCallback()
     Vol2.setValue(Volval[1]);
     if(VolSyncState == 1){
       Volume(LOW,0);
-      VolWanted[1] = Volval[1];      
+      VolWanted[0] = Volval[0];      
       Vol1.setValue(Volval[0]);
       }     
 }
@@ -538,8 +538,16 @@ void SPwLim1PopCallback()
 
 void PUpCh1PopCallback()
 {   
-    if (PwLimit[0] < 905){
-    PwLimit[0] = PwLimit[0] + 5;
+    if (PwLimit[0] < 910){
+      if (PwLimit[0] >= 100){
+      PwLimit[0] = PwLimit[0] + 10;
+      }
+      if (PwLimit[0] < 100 && PwLimit[0] >= 10){
+      PwLimit[0] = PwLimit[0] + 5;
+      }
+      else if (PwLimit[0] <= 10) {
+      PwLimit[0] = PwLimit[0] + 1;
+      }
     }      
     PLimCh1.setValue(PwLimit[0]);  
 }
@@ -547,7 +555,15 @@ void PUpCh1PopCallback()
 void PDwCh1PopCallback()
 {   
     if (PwLimit[0] > 0){
-    PwLimit[0] = PwLimit[0] - 5;
+      if (PwLimit[0] > 100){
+      PwLimit[0] = PwLimit[0] - 10;
+      }
+      if (PwLimit[0] <= 100 && PwLimit[0] > 10){
+      PwLimit[0] = PwLimit[0] - 5;
+      }
+      else if (PwLimit[0] <= 10){
+      PwLimit[0] = PwLimit[0] - 1;
+      }
     }      
     PLimCh1.setValue(PwLimit[0]);  
 }
@@ -729,8 +745,16 @@ void SPwLim2PopCallback()
 
 void PUpCh2PopCallback()
 {   
-    if (PwLimit[1] < 905){
-    PwLimit[1] = PwLimit[1] + 5;
+    if (PwLimit[1] < 910){
+      if (PwLimit[1] >= 100){
+      PwLimit[1] = PwLimit[1] + 10;
+      }
+      if (PwLimit[1] < 100 && PwLimit[1] >= 10){
+      PwLimit[1] = PwLimit[1] + 5;
+      }
+      else {
+      PwLimit[1] = PwLimit[1] + 1;
+      }
     }      
     PLimCh2.setValue(PwLimit[1]);  
 }
@@ -738,7 +762,15 @@ void PUpCh2PopCallback()
 void PDwCh2PopCallback()
 {   
     if (PwLimit[1] > 0){
-    PwLimit[1] = PwLimit[1] - 5;
+      if (PwLimit[1] > 100){
+      PwLimit[1] = PwLimit[1] - 10;
+      }
+      if (PwLimit[1] <= 100 && PwLimit[1] > 10){
+      PwLimit[1] = PwLimit[1] - 5;
+      }
+      else if (PwLimit[1] <= 10){
+      PwLimit[1] = PwLimit[1] - 1;
+      }
     }      
     PLimCh2.setValue(PwLimit[1]);  
 }

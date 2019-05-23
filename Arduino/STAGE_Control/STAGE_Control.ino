@@ -30,7 +30,7 @@ int unsigned timer5_ProcClip = 10;
 int unsigned timer6_ProcSupply = 250;
 int unsigned timer7_ProcInfo = 500;
 int unsigned timer8_ChPwr = 8000;
-int unsigned timer9_ProcPwr = 100;
+int unsigned timer9_ProcPwr = 50;
 int unsigned disp_timer1_DC = 3000;
 
 
@@ -94,8 +94,6 @@ int unsigned VolWanted[2] = {0,0};
 byte unsigned OverPwr[2] = {0,0};
 byte unsigned UnderPwr[2] = {0,0};
 byte unsigned  CPage = 0;
-
-char buffer[100] = {0};
 
 long unsigned int LastMillis1 = 0;
 long unsigned int LastMillis2 = 0;
